@@ -20,4 +20,6 @@ Smart meters are a technological requirement to go from the conventional energy 
 Smart meters also represent a huge opportunity from a research point of view, because of the quantity of data that can be gathered and analyzed on the consumption patterns. This data can be employed to develop more efficient methods for energy allocation, for the coordination of different energy resources needed to cover the energy requirements, or for the prediction of different scenarios of energy procurements. 
     
 As always with data collection, they also pose quite an important concern from a privacy point of view, and robust safeguides have to be put in place to avoid exposing sensitive information.
+
+test 
   
