@@ -3,4 +3,5 @@ format: jb-book
 root: intro
 
 chapters:
-  - file: 01_balcony-pv
+  - file: 01_balcony-pv-production
+  - file: 02_energy-consumption
