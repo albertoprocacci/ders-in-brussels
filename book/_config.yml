@@ -1,0 +1,12 @@
+title: DERs for Apartment Buildings in Brussels
+author: Alberto Procacci
+
+execute:
+  execute_notebooks: force
+
+html:
+  use_repository_button: true
+  use_issues_button: true
+
+repository:
+  url: https://github.com/albertoprocacci/brussels-ders
