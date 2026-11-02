@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Plug and play photovoltaic panels &#8212; DERs for Apartment Buildings in Brussels</title>
+    <title>Energy consumption in Brussels &#8212; DERs for Apartment Buildings in Brussels</title>
   
   
   
@@ -64,6 +64,7 @@
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Life cycle assessment" href="03_balcony-lca.html" />
     <link rel="prev" title="Plug and play photovoltaic panels" href="01_balcony-pv-production.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -152,10 +153,6 @@
   
 
   
-    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
-      <span class="fa-solid fa-outdent"></span>
-    </button>
-  
 </div>
 
     </header>
@@ -215,8 +212,12 @@
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="01_balcony-pv-production.html">Plug and play photovoltaic panels</a></li>
 
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Plug and play photovoltaic panels</a></li>
-
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Energy consumption in Brussels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_balcony-lca.html">Life cycle assessment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_balcony-pv-battery.html">Battery storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_permitting.html">Permitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06_rooftop-pv.html">Rooftop solar</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_financing.html">Financing</a></li>
 </ul>
 
     </div>
@@ -386,9 +387,7 @@
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
-<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</button>
+
 </div></div>
       
     </div>
@@ -399,21 +398,11 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Plug and play photovoltaic panels</h1>
+    <h1>Energy consumption in Brussels</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Plug and play photovoltaic panels</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-the-solar-radiation">Calculating the solar radiation</a></li>
-</ul>
-
-            </nav>
         </div>
     </div>
 </div>
@@ -423,252 +412,39 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="plug-and-play-photovoltaic-panels">
-<h1>Plug and play photovoltaic panels<a class="headerlink" href="#plug-and-play-photovoltaic-panels" title="Link to this heading">#</a></h1>
-<p>Recently, Synergrid has published a technical directive listing the requirements for plug and play devices that can store or generate electrical energy. They also provide a list indicating which equipment is homologated to be used in Belgium. These plug-and-play devices can be purchased by privates and installed without contacting a technician directly by connecting them to normal electrical outlets.</p>
-<p>The question is then, does it make sense to buy them?</p>
-<p>This depends of course on the amount of energy that can be harvested from the sun, and the electric energy that is consumed by the dwelling.</p>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="calculating-the-solar-radiation">
-<h1>Calculating the solar radiation<a class="headerlink" href="#calculating-the-solar-radiation" title="Link to this heading">#</a></h1>
-<p>The amount of solar energy that hits a solar panel installed on a balcony depends on a variety of factors:</p>
-<ul class="simple">
-<li><p>The orientation of the solar panel (azimuth). Ideally, this should be towards the South (180 degrees), but anything from East (90 degrees) to West (270) can be considered. Outside of this range, there is not enough sunlight to justify the installation of a solar panel.</p></li>
-<li><p>The slope of the solar panel, i.e. the tilt from the surface parallel to the ground. For a panel that is attached to the exterior facade of the balcony, the slope is usually fixed at 90 degrees which is not ideal especially for the summer months where the sun is high in the sky.</p></li>
-<li><p>Surrounding buildings. In a city such as Brussels, buildings can block the Sun for long hours each days, substantially reducing the amount of direct light hitting the solar panel.</p></li>
-<li><p>The cloud cover, which is of course quite a big problem in Brussels.</p></li>
-</ul>
-<p>Historic irradiance data (i.e. the amount of solar energy hitting a specific surface in the last years) based on the azimuth and the slope can be easily retrieved using a tool such as PVGIS: you need to provide the address of your home, then you have to fill the information related to the orientation, slope and horizon (i.e., the occlusion caused by the surrounding buildings). The balcony in my apartment is located in direction SW (azimuth = 225 degrees) and the slope of a potential PV panel attached to the balcony would be 90 degrees.</p>
-<p>Unfortunately, the information regarding the horizon is much harder to get. The way I managed to do it is by exploiting the UrbIS Buildings dataset. This dataset contains the 3D data for all the buildings in the Brussels Region. The data can be downloaded and analyzed using the geopandas Python library. Doing this, I managed to reconstruct the horizon elevation that I see from my balcony for each azimuthal degree, which looks something like this:</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="energy-consumption-in-brussels">
+<h1>Energy consumption in Brussels<a class="headerlink" href="#energy-consumption-in-brussels" title="Link to this heading">#</a></h1>
+<p>Yearly energy consumption is quite easy to learn from the billing issued by the energy providers.
+Sibelga publishes the yearly consumption for the Brussels region. Looking at the residential data, we can see that the average yearly consumption per household is around 2000 kWh, with some geographical difference:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pvlib</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
-<span class="n">hz</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"../data/horizon.csv"</span><span class="p">)</span>
+<span class="n">df_consumption</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"../data/202512-yearly-consumption-elec-2025.csv"</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">";"</span><span class="p">,</span> <span class="n">decimal</span><span class="o">=</span><span class="s2">"."</span><span class="p">)</span>
+<span class="n">df_consumption_res</span> <span class="o">=</span> <span class="n">df_consumption</span><span class="p">[</span><span class="n">df_consumption</span><span class="p">[</span><span class="s1">'CUSTOMER_TYPE_FR_TX'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'RES'</span><span class="p">]</span>
+<span class="n">df_consumption_res</span><span class="p">[</span><span class="s1">'CITY_FR_TX'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_consumption_res</span><span class="p">[</span><span class="s1">'CITY_FR_TX'</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa">r</span><span class="s2">"Brux.*"</span><span class="p">,</span> <span class="s2">"Bruxelles"</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df_consumption_res</span><span class="p">[</span><span class="s1">'AVERAGE_KWH'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_consumption_res</span><span class="p">[</span><span class="s1">'VOLUME_KWH'</span><span class="p">]</span> <span class="o">/</span> <span class="n">df_consumption_res</span><span class="p">[</span><span class="s1">'COUNT_EAN'</span><span class="p">]</span>
+<span class="n">mean_cons</span> <span class="o">=</span> <span class="n">df_consumption_res</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'CITY_FR_TX'</span><span class="p">)[</span><span class="s1">'AVERAGE_KWH'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-<span class="c1"># Location in Brussels</span>
-<span class="n">latitude</span> <span class="o">=</span> <span class="mf">50.817205</span>
-<span class="n">longitude</span> <span class="o">=</span> <span class="mf">4.377434</span>
-<span class="n">azimuth</span> <span class="o">=</span> <span class="mi">223</span>  <span class="c1"># SW</span>
+<span class="c1"># Load a polygon layer containing the Brussels municipalities.</span>
+<span class="n">municipalities</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s2">"../data/limites-administratives-des-communes-en-region-de-bruxelles-capitale.geojson"</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">mean_cons</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s2">"mean_kwh"</span><span class="p">)</span><span class="o">.</span><span class="n">rename_axis</span><span class="p">(</span><span class="s2">"CITY_FR_TX"</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">map_data</span> <span class="o">=</span> <span class="n">municipalities</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s2">"name_fr"</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s2">"CITY_FR_TX"</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
 
-<span class="c1"># Belgian time zone</span>
-<span class="n">tz</span> <span class="o">=</span> <span class="s2">"Europe/Brussels"</span>
-<span class="n">year</span> <span class="o">=</span> <span class="mi">2026</span>
-
-<span class="n">dates</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">([</span>
-    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">-01-21"</span><span class="p">,</span>
-    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">-02-21"</span><span class="p">,</span>
-    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">-03-21"</span><span class="p">,</span>
-    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">-04-21"</span><span class="p">,</span>
-    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">-05-21"</span><span class="p">,</span>
-    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">-06-21"</span><span class="p">,</span>
-    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">-07-21"</span><span class="p">,</span>
-    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">-08-21"</span><span class="p">,</span>
-    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">-09-21"</span><span class="p">,</span>
-    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">-10-21"</span><span class="p">,</span>
-    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">-11-21"</span><span class="p">,</span>
-    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">-12-21"</span><span class="p">,</span>
-<span class="p">])</span>
-
-<span class="n">solar_paths</span> <span class="o">=</span> <span class="p">{}</span>
-
-<span class="k">for</span> <span class="n">date</span> <span class="ow">in</span> <span class="n">dates</span><span class="p">:</span>
-    <span class="n">times</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">date</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">date</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">freq</span><span class="o">=</span><span class="s2">"2min"</span><span class="p">,</span> <span class="n">tz</span><span class="o">=</span><span class="n">tz</span><span class="p">)</span>
-    <span class="n">solar_position</span> <span class="o">=</span> <span class="n">pvlib</span><span class="o">.</span><span class="n">solarposition</span><span class="o">.</span><span class="n">get_solarposition</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">latitude</span><span class="p">,</span> <span class="n">longitude</span><span class="p">)</span>
-
-    <span class="c1"># Keep Sun above astronomical horizon</span>
-    <span class="n">solar_position</span> <span class="o">=</span> <span class="n">solar_position</span><span class="p">[</span><span class="n">solar_position</span><span class="p">[</span><span class="s2">"apparent_elevation"</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
-    <span class="n">solar_paths</span><span class="p">[</span><span class="n">date</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%b"</span><span class="p">)]</span> <span class="o">=</span> <span class="n">solar_position</span>
-
-
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
-<span class="n">az_horizon</span> <span class="o">=</span> <span class="n">hz</span><span class="p">[</span><span class="s2">"azimuth"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
-<span class="n">el_horizon</span> <span class="o">=</span> <span class="n">hz</span><span class="p">[</span><span class="s2">"horizon_height"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
-
-<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">az_horizon</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">el_horizon</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"gray"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Buildings"</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">az_horizon</span><span class="p">,</span> <span class="n">el_horizon</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"black"</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
-
-<span class="n">cmap</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">viridis</span>
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">month</span><span class="p">,</span> <span class="n">sun</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">solar_paths</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
-    <span class="n">mask</span> <span class="o">=</span> <span class="p">((</span><span class="n">sun</span><span class="p">[</span><span class="s2">"azimuth"</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span><span class="p">(</span><span class="n">sun</span><span class="p">[</span><span class="s2">"azimuth"</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">360</span><span class="p">))</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sun</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">mask</span><span class="p">,</span> <span class="s2">"azimuth"</span><span class="p">],</span> <span class="n">sun</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">mask</span><span class="p">,</span> <span class="s2">"apparent_elevation"</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">cmap</span><span class="p">(</span><span class="n">i</span> <span class="o">/</span> <span class="mi">11</span><span class="p">),</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">month</span><span class="p">)</span>
-
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">azimuth</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="n">azimuth</span><span class="o">+</span><span class="mi">90</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">65</span><span class="p">)</span>
-
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([</span><span class="mi">135</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">225</span><span class="p">,</span> <span class="mi">270</span><span class="p">,</span> <span class="mi">315</span><span class="p">],</span> <span class="p">[</span><span class="s2">"SE"</span><span class="p">,</span> <span class="s2">"S"</span><span class="p">,</span> <span class="s2">"SW"</span><span class="p">,</span> <span class="s2">"W"</span><span class="p">,</span> <span class="s2">"NW"</span><span class="p">])</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Solar azimuth"</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Elevation [deg]"</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">ncol</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s2">"upper right"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">map_data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s2">"mean_kwh"</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">"gray"</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">"black"</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">missing_kwds</span><span class="o">=</span><span class="p">{</span><span class="s2">"color"</span><span class="p">:</span> <span class="s2">"lightgrey"</span><span class="p">,</span> <span class="s2">"label"</span><span class="p">:</span> <span class="s2">"No data"</span><span class="p">},</span> <span class="n">legend_kwds</span><span class="o">=</span><span class="p">{</span><span class="s2">"label"</span><span class="p">:</span> <span class="s2">"Mean consumption (kWh)"</span><span class="p">})</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_figure</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/863fe88b50c53f108261c63df85a7b3aa4c0a291b61d2ccada73ebe560ee5948.png" src="_images/863fe88b50c53f108261c63df85a7b3aa4c0a291b61d2ccada73ebe560ee5948.png" />
+<img alt="_images/f573cacd2079b442dfcf454856bc9a86f3f0428be777c0e8863f4fe32f5f555b.png" src="_images/f573cacd2079b442dfcf454856bc9a86f3f0428be777c0e8863f4fe32f5f555b.png" />
 </div>
 </div>
-<p>As you can see, I have quite a big building in front of my balcony. During the summer months, the sun is higher than the building for most of the day. However, this means also that it will hit the solar panel with a large angle, which is not ideal. During the winter months, the solar panel will get a bit of sunlight only during late morning.</p>
-<p>Through pvlib, I have also retrieved the solar irradiance data for the last 5 years available, from 2018 to 2023. This data has hourly information on the irradiance, divided into the direct energy (the solar rays that hit the panel directly and that can be blocked by the buildings) and diffuse energy, which is the light scattered by the sky and coming from all directions.</p>
-<p>For example, on the 11th of October 2023, the Sun would have hit directly my solar panel only between 11:00 and 15:00, while the diffuse radiation would have contributed from 9:00 to 18:00</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># PVGIS data for 5 years</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">pvlib</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pvlib.iotools</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_pvgis_hourly</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.dates</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mdates</span>
-
-<span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">,</span> <span class="n">alt</span> <span class="o">=</span> <span class="mf">50.817205</span><span class="p">,</span> <span class="mf">4.377434</span><span class="p">,</span> <span class="mf">90.452</span>
-<span class="n">tilt</span><span class="p">,</span> <span class="n">azimuth</span> <span class="o">=</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">223</span>          <span class="c1"># vertical, south-facing (pvlib: 180 = south)</span>
-<span class="n">tz</span> <span class="o">=</span> <span class="s2">"Europe/Brussels"</span>
-
-<span class="n">data</span><span class="p">,</span> <span class="n">meta</span> <span class="o">=</span> <span class="n">get_pvgis_hourly</span><span class="p">(</span>
-    <span class="n">latitude</span><span class="o">=</span><span class="n">lat</span><span class="p">,</span>
-    <span class="n">longitude</span><span class="o">=</span><span class="n">lon</span><span class="p">,</span>
-    <span class="n">start</span><span class="o">=</span><span class="mi">2019</span><span class="p">,</span>
-    <span class="n">end</span><span class="o">=</span><span class="mi">2023</span><span class="p">,</span>
-    <span class="n">raddatabase</span><span class="o">=</span><span class="s2">"PVGIS-SARAH3"</span><span class="p">,</span>
-    <span class="n">components</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">surface_tilt</span><span class="o">=</span><span class="n">tilt</span><span class="p">,</span>
-    <span class="n">surface_azimuth</span><span class="o">=</span><span class="n">azimuth</span><span class="p">,</span>
-    <span class="n">usehorizon</span><span class="o">=</span><span class="kc">False</span>
-<span class="p">)</span>
-
-<span class="n">data</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tz_convert</span><span class="p">(</span><span class="s2">"Europe/Brussels"</span><span class="p">)</span>
-<span class="n">site</span> <span class="o">=</span> <span class="n">pvlib</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="n">Location</span><span class="p">(</span><span class="n">latitude</span><span class="o">=</span><span class="n">lat</span><span class="p">,</span> <span class="n">longitude</span><span class="o">=</span><span class="n">lon</span><span class="p">,</span> <span class="n">tz</span><span class="o">=</span><span class="n">tz</span><span class="p">,</span> <span class="n">altitude</span><span class="o">=</span><span class="n">alt</span><span class="p">)</span>
-<span class="n">solpos</span> <span class="o">=</span> <span class="n">site</span><span class="o">.</span><span class="n">get_solarposition</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
-
-<span class="n">hz</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"../data/horizon.csv"</span><span class="p">)</span>
-<span class="n">hz_az</span><span class="p">,</span> <span class="n">hz_hg</span> <span class="o">=</span> <span class="n">hz</span><span class="p">[</span><span class="s2">"azimuth"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">hz</span><span class="p">[</span><span class="s2">"horizon_height"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
-<span class="n">sun_horizon</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">solpos</span><span class="p">[</span><span class="s2">"azimuth"</span><span class="p">],</span> <span class="n">hz_az</span><span class="p">,</span> <span class="n">hz_hg</span><span class="p">,</span> <span class="n">period</span><span class="o">=</span><span class="mi">360</span><span class="p">)</span>
-<span class="n">blocked</span> <span class="o">=</span> <span class="p">(</span><span class="n">solpos</span><span class="p">[</span><span class="s2">"apparent_elevation"</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">sun_horizon</span><span class="p">)</span>
-<span class="n">data</span><span class="p">[</span><span class="s2">"poa_direct_corr"</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">"poa_direct"</span><span class="p">]</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="o">~</span><span class="n">blocked</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
-
-<span class="n">h</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">hz_hg</span><span class="p">)</span>
-<span class="n">diff</span> <span class="o">=</span> <span class="p">((</span><span class="n">hz_az</span> <span class="o">-</span> <span class="n">azimuth</span> <span class="o">+</span> <span class="mi">180</span><span class="p">)</span> <span class="o">%</span> <span class="mi">360</span><span class="p">)</span> <span class="o">-</span> <span class="mi">180</span>
-<span class="n">front</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">diff</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">90</span>
-<span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">diff</span><span class="p">[</span><span class="n">front</span><span class="p">]))</span>
-
-<span class="n">svf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">weights</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">h</span><span class="p">[</span><span class="n">front</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
-
-<span class="n">data</span><span class="p">[</span><span class="s1">'poa_diffuse'</span><span class="p">]</span> <span class="o">=</span> <span class="n">svf</span><span class="o">*</span><span class="n">data</span><span class="p">[</span><span class="s1">'poa_sky_diffuse'</span><span class="p">]</span> <span class="o">+</span> <span class="n">data</span><span class="p">[</span><span class="s1">'poa_ground_diffuse'</span><span class="p">]</span>
-<span class="n">data</span><span class="p">[</span><span class="s1">'poa_global'</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">'poa_direct_corr'</span><span class="p">]</span> <span class="o">+</span> <span class="n">data</span><span class="p">[</span><span class="s1">'poa_diffuse'</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">day</span> <span class="o">=</span> <span class="s2">"2023-10-11"</span>
-<span class="n">day_end</span> <span class="o">=</span> <span class="s2">"2023-10-11 23:59"</span>
-
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">"poa_direct_corr"</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">day</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"POA direct corrected"</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">'k'</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">"poa_diffuse"</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">day</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"POA diffuse"</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">'k'</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">'--'</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">"poa_global"</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">day</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"POA global"</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span><span class="s1">'k'</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">mdates</span><span class="o">.</span><span class="n">DateFormatter</span><span class="p">(</span><span class="s2">"%H:%M"</span><span class="p">,</span> <span class="n">tz</span><span class="o">=</span><span class="n">tz</span><span class="p">))</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Irradiance [W/m²]"</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Irradiance on </span><span class="si">{</span><span class="n">day</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/9b7b5ab9e728ef1d738cc25544cec2c8d814a67fbbeea391496a90baeae5332d.png" src="_images/9b7b5ab9e728ef1d738cc25544cec2c8d814a67fbbeea391496a90baeae5332d.png" />
-</div>
-</div>
-<p>From this dataset, we can compute how much energy the solar panel would gather each year. To perform the calculation I’m employing the following setup:</p>
-<ul class="simple">
-<li><p>Number of solar panels: 2</p></li>
-<li><p>Length of the solar panel: 1.96 m</p></li>
-<li><p>Height of the solar panel: 1.134 m</p></li>
-<li><p>Total area: 4.45 m2</p></li>
-<li><p>Efficiency of the solar panel: 25.3%</p></li>
-<li><p>Total efficiency of the system: 85%</p></li>
-<li><p>Nominal power: 1000 W</p></li>
-<li><p>Inverter: 800 W (not clear if this is the maximum allowed for plug &amp; play installations)</p></li>
-<li><p>Price: 550 Eur</p></li>
-</ul>
-<p>The yearly amount of energy that would have been produced by the PV system fluctuates around 500/600 kWh.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Power output</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pvlib.temperature</span><span class="w"> </span><span class="kn">import</span> <span class="n">sapm_cell</span>
-<span class="n">temp_cell</span> <span class="o">=</span> <span class="n">sapm_cell</span><span class="p">(</span>
-    <span class="n">poa_global</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s2">"poa_global"</span><span class="p">],</span>
-    <span class="n">temp_air</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s2">"temp_air"</span><span class="p">],</span>
-    <span class="n">wind_speed</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s2">"wind_speed"</span><span class="p">],</span>
-    <span class="n">a</span><span class="o">=-</span><span class="mf">3.56</span><span class="p">,</span>
-    <span class="n">b</span><span class="o">=-</span><span class="mf">0.075</span><span class="p">,</span>
-    <span class="n">deltaT</span><span class="o">=</span><span class="mi">3</span>
-<span class="p">)</span>
-
-<span class="n">n_panels</span> <span class="o">=</span> <span class="mi">2</span>
-<span class="n">length</span> <span class="o">=</span> <span class="mf">1.96</span>  <span class="c1">#m</span>
-<span class="n">height</span> <span class="o">=</span> <span class="mf">1.134</span>  <span class="c1">#m</span>
-<span class="n">area</span> <span class="o">=</span> <span class="n">n_panels</span> <span class="o">*</span> <span class="n">length</span> <span class="o">*</span> <span class="n">height</span> <span class="c1">#m2</span>
-<span class="n">eta_panel</span> <span class="o">=</span> <span class="mf">0.253</span>
-<span class="n">eta_sys</span> <span class="o">=</span> <span class="mf">0.85</span>
-<span class="n">P_nom</span> <span class="o">=</span> <span class="n">n_panels</span> <span class="o">*</span> <span class="mi">500</span> <span class="c1">#W</span>
-<span class="n">price</span> <span class="o">=</span> <span class="mi">550</span>  <span class="c1">#Eur</span>
-
-<span class="n">gamma</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.0035</span>  <span class="c1"># 1/°C</span>
-<span class="n">power</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">"poa_global"</span><span class="p">]</span><span class="o">*</span> <span class="n">P_nom</span><span class="o">/</span><span class="mi">1000</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">gamma</span><span class="o">*</span><span class="p">(</span><span class="n">temp_cell</span> <span class="o">-</span> <span class="mi">25</span><span class="p">)))</span>
-
-<span class="n">data</span><span class="p">[</span><span class="s1">'P_prod'</span><span class="p">]</span> <span class="o">=</span> <span class="n">power</span> <span class="o">*</span> <span class="n">eta_sys</span>  <span class="c1">#W</span>
-<span class="n">data</span><span class="p">[</span><span class="s1">'E_prod'</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">'P_prod'</span><span class="p">]</span><span class="o">/</span><span class="mi">1000</span>  <span class="c1"># kWh</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot yearly production</span>
-<span class="n">yearly</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">'E_prod'</span><span class="p">]</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s2">"YE"</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">yearly</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">yearly</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'black'</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Year"</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mf">2018.5</span><span class="p">,</span> <span class="mf">2023.5</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Energy [kWh]"</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/dc0823c61a7463789cd5c1a5479c1d527a428d7b1151c126dd5caf6f59a8f73d.png" src="_images/dc0823c61a7463789cd5c1a5479c1d527a428d7b1151c126dd5caf6f59a8f73d.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot monthly production</span>
-<span class="n">monthly_2023</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">"2023"</span><span class="p">,</span> <span class="s2">"E_prod"</span><span class="p">]</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s2">"ME"</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">monthly_2023</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">monthly_2023</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'black'</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Month"</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">12.5</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Energy [kWh]"</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">13</span><span class="p">))</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([</span><span class="s2">"Jan"</span><span class="p">,</span> <span class="s2">"Feb"</span><span class="p">,</span> <span class="s2">"Mar"</span><span class="p">,</span> <span class="s2">"Apr"</span><span class="p">,</span> <span class="s2">"May"</span><span class="p">,</span> <span class="s2">"Jun"</span><span class="p">,</span> <span class="s2">"Jul"</span><span class="p">,</span> <span class="s2">"Aug"</span><span class="p">,</span> <span class="s2">"Sep"</span><span class="p">,</span> <span class="s2">"Oct"</span><span class="p">,</span> <span class="s2">"Nov"</span><span class="p">,</span> <span class="s2">"Dec"</span><span class="p">])</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Monthly PV production (2023)"</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/b6be6ebb5136b2940645b02d15299c2a148baf0935ccf5a3705027b0f09b4dab.png" src="_images/b6be6ebb5136b2940645b02d15299c2a148baf0935ccf5a3705027b0f09b4dab.png" />
-</div>
-</div>
-<p>Given my orientation, the best months would be from April to September, with a sharp drop from October to March.</p>
+<p>The municipalities consuming a larger share of energy are the ones on the south: Woluwe-Saint-Pierre, Auderghem, Watermael-Boitsfort, Uccle, which also happen to be the richest municipalities.</p>
 </section>
 
     <script type="text/x-thebe-config">
@@ -710,31 +486,21 @@
         <p class="prev-next-title">Plug and play photovoltaic panels</p>
       </div>
     </a>
+    <a class="right-next"
+       href="03_balcony-lca.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Life cycle assessment</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
             </div>
             
             
-              
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item"><div
-    id="pst-page-navigation-heading-2"
-    class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
-    <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Plug and play photovoltaic panels</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-the-solar-radiation">Calculating the solar radiation</a></li>
-</ul>
-
-  </nav></div>
-
-</div></div>
               
             
           </div>
