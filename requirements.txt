@@ -2,3 +2,5 @@ jupyter-book<2
 pvlib
 pandas
 matplotlib
+geopandas
+python-calamine

@@ -5,3 +5,8 @@ root: intro
 chapters:
   - file: 01_balcony-pv-production
   - file: 02_energy-consumption
+  - file: 03_balcony-lca
+  - file: 04_balcony-pv-battery
+  - file: 05_permitting
+  - file: 06_rooftop-pv
+  - file: 07_financing
