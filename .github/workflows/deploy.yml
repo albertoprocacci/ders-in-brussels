@@ -19,7 +19,7 @@ jobs:
       with:
         python-version: "3.12"
 
-    - run: pip install jupyter-book
+    - run: pip install "jupyter-book<2"
 
     - run: jupyter-book build --all book/
 
