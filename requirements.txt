@@ -4,3 +4,5 @@ pandas
 matplotlib
 geopandas
 python-calamine
+statsmodels
+adjustText
