@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Life cycle assessment &#8212; DERs for Apartment Buildings in Brussels</title>
+    <title>Life cycle assessment of plug and play solar &#8212; DERs for Apartment Buildings in Brussels</title>
   
   
   
@@ -214,10 +214,12 @@
 
 
 <li class="toctree-l1"><a class="reference internal" href="02_energy-consumption.html">Energy consumption in Brussels</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Life cycle assessment</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Life cycle assessment of plug and play solar</a></li>
 <li class="toctree-l1"><a class="reference internal" href="04_balcony-pv-battery.html">Battery storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="05_permitting.html">Permitting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="06_rooftop-pv.html">Rooftop solar</a></li>
+
+
 <li class="toctree-l1"><a class="reference internal" href="07_financing.html">Financing</a></li>
 </ul>
 
@@ -399,7 +401,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Life cycle assessment</h1>
+    <h1>Life cycle assessment of plug and play solar</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -413,11 +415,12 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="life-cycle-assessment">
-<h1>Life cycle assessment<a class="headerlink" href="#life-cycle-assessment" title="Link to this heading">#</a></h1>
-<p>Would this setup also reduce my carbon footprint? This depends on how much carbon is embedded in the production, use and recycling of the solar panels (life cycle assessment) compared with the carbon intensity of the Belgian electrical grid.
-The IEA proposes a value of 35.8 gCO2e/kWh for monocrystal solar panels, over a 30 year lifetime. Considering an average annual production of 557.88 kWh, over 30 years this would correspond to 16.74 MWh, or 599.16 kg of CO2e emissions prevented.</p>
+  <section id="life-cycle-assessment-of-plug-and-play-solar">
+<h1>Life cycle assessment of plug and play solar<a class="headerlink" href="#life-cycle-assessment-of-plug-and-play-solar" title="Link to this heading">#</a></h1>
+<p>In the first <a class="reference internal" href="01_balcony-pv-production.html"><span class="std std-doc">chapter</span></a>, we have seen that installing balcony solar can make sense from an economic point of view. But can this technology reduce meaningfully my carbon footprint? This depends on how much carbon is embedded in the production, use and recycling of the solar panels (life cycle assessment) compared with the carbon intensity of the Belgian electrical grid.</p>
+<p>The <a class="reference external" href="https://iea-pvps.org/wp-content/uploads/2024/05/Slides_IEA-PVPS-T12_Fact-Sheet-update-2023_v2.0.pdf">IEA</a> proposes a value of 35.8 gCO2e/kWh (grams of CO2 equivalent emissions per kWh of energy) for monocrystal solar panels, over a 30 year lifetime. Considering an average annual production of 557.88 kWh, over 30 years this would correspond to 16.74 MWh, or around 600 kg of CO2e emissions prevented.</p>
 <p>The carbon intensity of the Belgian electrical grid varies in time depending on the specific energy mix. It gets low when the grid is powered by renewable energy, and it increases when natural gas is burnt to generate energy. In theory, this means that to get a precise calculation of the avoided carbon emissions I should consider the hourly variation of carbon intensity.</p>
+<p>The data relative to the carbon intensity of the Belgian grid is provided by <a class="reference external" href="https://opendata.elia.be/explore/dataset/ods192/information/">Elia</a>. Some entries are equal to zero, I’m not sure if this is represents the true carbon intensity, maybe when the grid is entirely powered by renewables, or it’s simply a bug.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">annual_energy</span> <span class="o">=</span> <span class="mf">557.88</span> <span class="c1"># kWh/year</span>
@@ -444,8 +447,15 @@ Carbon intensity: 35.80 gCO2e/kWh
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">font_manager</span> <span class="k">as</span> <span class="n">fm</span>
+
+<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">Path</span><span class="p">(</span><span class="s2">"fonts"</span><span class="p">)</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">"*.ttf"</span><span class="p">):</span>   <span class="c1"># path relative to the notebook</span>
+    <span class="n">fm</span><span class="o">.</span><span class="n">fontManager</span><span class="o">.</span><span class="n">addfont</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">"font.family"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Montserrat"</span>
+
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.dates</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mdates</span>
 
 <span class="n">grid_intensity</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"../data/ods192.csv"</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">";"</span><span class="p">)</span>
@@ -462,7 +472,7 @@ Carbon intensity: 35.80 gCO2e/kWh
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Net carbon: </span><span class="si">{</span><span class="n">embodied_carbon</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">avoided_carbon</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> kg CO2e'</span><span class="p">)</span>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid_intensity</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">grid_intensity</span><span class="p">[</span><span class="s2">"Consumption"</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">'k'</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid_intensity</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">grid_intensity</span><span class="p">[</span><span class="s2">"Consumption"</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">'#043122'</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Time"</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Carbon intensity [gCO2e/kWh]"</span><span class="p">)</span>   
 <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">mdates</span><span class="o">.</span><span class="n">DateFormatter</span><span class="p">(</span><span class="s2">"</span><span class="si">%d</span><span class="s2">-%H:%M"</span><span class="p">,</span> <span class="n">tz</span><span class="o">=</span><span class="n">tz</span><span class="p">))</span>
@@ -479,7 +489,7 @@ Avoided carbon: 2403.52 kg CO2e
 Net carbon: -1804.36 kg CO2e
 </pre></div>
 </div>
-<img alt="_images/233205b42f21a3a43e93a4a4a76dc340e0275061703e5cd3bd524d743124affd.png" src="_images/233205b42f21a3a43e93a4a4a76dc340e0275061703e5cd3bd524d743124affd.png" />
+<img alt="_images/0c18a9bd7bd8b42c13dea8c7f079b20f1024b8021d0d808653d5d276e94d320b.png" src="_images/0c18a9bd7bd8b42c13dea8c7f079b20f1024b8021d0d808653d5d276e94d320b.png" />
 </div>
 </div>
 <p>However, to obtain a first order approximation, I will consider the average carbon intensity of the last 3 years, which is equal to 143.61 g/CO2e/kWh, or almost 5 times higher than the solar panel’s carbon intensity. In the end, this means that over its lifetime, the solar panel would avoid the emission of roughly 1800 kg CO2e.</p>

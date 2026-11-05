@@ -64,7 +64,7 @@
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Life cycle assessment" href="03_balcony-lca.html" />
+    <link rel="next" title="Life cycle assessment of plug and play solar" href="03_balcony-lca.html" />
     <link rel="prev" title="Balcony solar panels" href="01_balcony-pv-production.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -214,10 +214,12 @@
 
 
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Energy consumption in Brussels</a></li>
-<li class="toctree-l1"><a class="reference internal" href="03_balcony-lca.html">Life cycle assessment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_balcony-lca.html">Life cycle assessment of plug and play solar</a></li>
 <li class="toctree-l1"><a class="reference internal" href="04_balcony-pv-battery.html">Battery storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="05_permitting.html">Permitting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="06_rooftop-pv.html">Rooftop solar</a></li>
+
+
 <li class="toctree-l1"><a class="reference internal" href="07_financing.html">Financing</a></li>
 </ul>
 
@@ -413,28 +415,37 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="energy-consumption-in-brussels">
+  <section id="energy-consumption-in-brussels">
 <h1>Energy consumption in Brussels<a class="headerlink" href="#energy-consumption-in-brussels" title="Link to this heading">#</a></h1>
-<p>Yearly energy consumption is quite easy to learn from the billing issued by the energy providers.
-Sibelga publishes the yearly consumption for the Brussels region. Looking at the residential data, we can see that the average yearly consumption per household is around 2000 kWh, with some geographical difference:</p>
+<p>Sibelga regularly publishes the yearly consumption for the different municipalities in the Brussels region. Looking at the residential data, we can see that the average yearly consumption per household is around 2000 kWh, with some geographical differences:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">font_manager</span> <span class="k">as</span> <span class="n">fm</span>
+
+<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">Path</span><span class="p">(</span><span class="s2">"fonts"</span><span class="p">)</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">"*.ttf"</span><span class="p">):</span>   <span class="c1"># path relative to the notebook</span>
+    <span class="n">fm</span><span class="o">.</span><span class="n">fontManager</span><span class="o">.</span><span class="n">addfont</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">"font.family"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Montserrat"</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.colors</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearSegmentedColormap</span>
+<span class="n">cmap</span> <span class="o">=</span> <span class="n">LinearSegmentedColormap</span><span class="o">.</span><span class="n">from_list</span><span class="p">(</span><span class="s2">"swifft_map"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"#043122"</span><span class="p">,</span> <span class="s2">"#C03C04"</span><span class="p">])</span>
 
 <span class="n">df_consumption</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"../data/202512-yearly-consumption-elec-2025.csv"</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">";"</span><span class="p">,</span> <span class="n">decimal</span><span class="o">=</span><span class="s2">"."</span><span class="p">)</span>
 <span class="n">df_consumption_res</span> <span class="o">=</span> <span class="n">df_consumption</span><span class="p">[</span><span class="n">df_consumption</span><span class="p">[</span><span class="s1">'CUSTOMER_TYPE_FR_TX'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'RES'</span><span class="p">]</span>
 <span class="n">df_consumption_res</span><span class="p">[</span><span class="s1">'CITY_FR_TX'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_consumption_res</span><span class="p">[</span><span class="s1">'CITY_FR_TX'</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa">r</span><span class="s2">"Brux.*"</span><span class="p">,</span> <span class="s2">"Bruxelles"</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">df_consumption_res</span><span class="p">[</span><span class="s1">'AVERAGE_KWH'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_consumption_res</span><span class="p">[</span><span class="s1">'VOLUME_KWH'</span><span class="p">]</span> <span class="o">/</span> <span class="n">df_consumption_res</span><span class="p">[</span><span class="s1">'COUNT_EAN'</span><span class="p">]</span>
-<span class="n">mean_cons</span> <span class="o">=</span> <span class="n">df_consumption_res</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'CITY_FR_TX'</span><span class="p">)[</span><span class="s1">'AVERAGE_KWH'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">df_mean_cons</span> <span class="o">=</span> <span class="n">df_consumption_res</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'CITY_FR_TX'</span><span class="p">)[</span><span class="s1">'AVERAGE_KWH'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 <span class="c1"># Load a polygon layer containing the Brussels municipalities.</span>
 <span class="n">municipalities</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s2">"../data/limites-administratives-des-communes-en-region-de-bruxelles-capitale.geojson"</span><span class="p">)</span>
-<span class="n">results</span> <span class="o">=</span> <span class="n">mean_cons</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s2">"mean_kwh"</span><span class="p">)</span><span class="o">.</span><span class="n">rename_axis</span><span class="p">(</span><span class="s2">"CITY_FR_TX"</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">df_mean_cons</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s2">"mean_kwh"</span><span class="p">)</span><span class="o">.</span><span class="n">rename_axis</span><span class="p">(</span><span class="s2">"CITY_FR_TX"</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 <span class="n">map_data</span> <span class="o">=</span> <span class="n">municipalities</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s2">"name_fr"</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s2">"CITY_FR_TX"</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
 
-<span class="n">ax</span> <span class="o">=</span> <span class="n">map_data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s2">"mean_kwh"</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">"gray"</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">"black"</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">missing_kwds</span><span class="o">=</span><span class="p">{</span><span class="s2">"color"</span><span class="p">:</span> <span class="s2">"lightgrey"</span><span class="p">,</span> <span class="s2">"label"</span><span class="p">:</span> <span class="s2">"No data"</span><span class="p">},</span> <span class="n">legend_kwds</span><span class="o">=</span><span class="p">{</span><span class="s2">"label"</span><span class="p">:</span> <span class="s2">"Mean consumption (kWh)"</span><span class="p">})</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">map_data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s2">"mean_kwh"</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">"black"</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">missing_kwds</span><span class="o">=</span><span class="p">{</span><span class="s2">"color"</span><span class="p">:</span> <span class="s2">"lightgrey"</span><span class="p">,</span> <span class="s2">"label"</span><span class="p">:</span> <span class="s2">"No data"</span><span class="p">},</span> <span class="n">legend_kwds</span><span class="o">=</span><span class="p">{</span><span class="s2">"label"</span><span class="p">:</span> <span class="s2">"Mean consumption (kWh)"</span><span class="p">})</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>
 <span class="n">fig</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_figure</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -442,10 +453,96 @@ Sibelga publishes the yearly consumption for the Brussels region. Looking at the
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/f573cacd2079b442dfcf454856bc9a86f3f0428be777c0e8863f4fe32f5f555b.png" src="_images/f573cacd2079b442dfcf454856bc9a86f3f0428be777c0e8863f4fe32f5f555b.png" />
+<img alt="_images/f01e640552179ea89e0d0d1d6dee7a25721b6cfd0574cb3490fc3b02f151e76e.png" src="_images/f01e640552179ea89e0d0d1d6dee7a25721b6cfd0574cb3490fc3b02f151e76e.png" />
 </div>
 </div>
-<p>The municipalities consuming a larger share of energy are the ones on the south: Woluwe-Saint-Pierre, Auderghem, Watermael-Boitsfort, Uccle, which also happen to be the richest municipalities.</p>
+<p>The municipalities consuming a larger share of energy are the ones on the south: Woluwe-Saint-Pierre, Auderghem, Watermael-Boitsfort, Uccle, which also happen to be the richest municipalities.
+This is supported by looking at the average revenue data for the different municipaloties. The IBSA (Institut Bruxellois de Statistique et d’Analyse) publishes the equivalent mean revenue per inhabitant after taxes, and we can compare it with the mean consumption.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_revenues</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s2">"../data/2.1b_rev_dep_menages_stat_fisc_menages_prives_20260526.xlsx"</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="s2">"2.1.5.7"</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s2">"calamine"</span><span class="p">)</span>
+<span class="n">df_revenues</span> <span class="o">=</span> <span class="n">df_revenues</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">"Unnamed: 0"</span><span class="p">:</span> <span class="s2">"CITY_FR_TX"</span><span class="p">})</span>
+<span class="n">df_revenues_2023</span> <span class="o">=</span> <span class="n">df_revenues</span><span class="p">[[</span><span class="s2">"CITY_FR_TX"</span><span class="p">,</span> <span class="mi">2023</span><span class="p">]]</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="mi">2023</span><span class="p">:</span> <span class="s2">"AVG_REVENUE"</span><span class="p">})</span>
+
+<span class="n">df_joint</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_mean_cons</span><span class="p">,</span> <span class="n">df_revenues_2023</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">"CITY_FR_TX"</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+<span class="c1"># print(df_joint)</span>
+<span class="n">map_data_revenues</span> <span class="o">=</span> <span class="n">municipalities</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_joint</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s2">"name_fr"</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s2">"CITY_FR_TX"</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">map_data_revenues</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s2">"AVG_REVENUE"</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">"black"</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">missing_kwds</span><span class="o">=</span><span class="p">{</span><span class="s2">"color"</span><span class="p">:</span> <span class="s2">"lightgrey"</span><span class="p">,</span> <span class="s2">"label"</span><span class="p">:</span> <span class="s2">"No data"</span><span class="p">},</span> <span class="n">legend_kwds</span><span class="o">=</span><span class="p">{</span><span class="s2">"label"</span><span class="p">:</span> <span class="s2">"Mean revenue (€)"</span><span class="p">})</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/4a886e7b076a174c4a523e9d1ff40758c37a80cc99020b4334e97f6b9542d078.png" src="_images/4a886e7b076a174c4a523e9d1ff40758c37a80cc99020b4334e97f6b9542d078.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">adjustText</span><span class="w"> </span><span class="kn">import</span> <span class="n">adjust_text</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">statsmodels.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sm</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">df_joint</span><span class="p">[</span><span class="s2">"AVG_REVENUE"</span><span class="p">])</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">df_joint</span><span class="p">[</span><span class="s2">"AVERAGE_KWH"</span><span class="p">],</span> <span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">intercept</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">'const'</span><span class="p">]</span>
+<span class="n">slope</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">'AVG_REVENUE'</span><span class="p">]</span>
+
+<span class="n">regression_line</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span><span class="p">,))</span>
+<span class="n">regression_line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">intercept</span> <span class="o">+</span> <span class="n">slope</span> <span class="o">*</span> <span class="n">df_joint</span><span class="p">[</span><span class="s2">"AVG_REVENUE"</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+<span class="n">regression_line</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">intercept</span> <span class="o">+</span> <span class="n">slope</span> <span class="o">*</span> <span class="n">df_joint</span><span class="p">[</span><span class="s2">"AVG_REVENUE"</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">df_joint</span><span class="p">[</span><span class="s2">"AVG_REVENUE"</span><span class="p">],</span> <span class="n">df_joint</span><span class="p">[</span><span class="s2">"AVERAGE_KWH"</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">'#043122'</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">df_joint</span><span class="p">[</span><span class="s2">"AVG_REVENUE"</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">df_joint</span><span class="p">[</span><span class="s2">"AVG_REVENUE"</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()],</span> <span class="n">regression_line</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"#C03C04"</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">'--'</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Mean revenue (€)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Mean consumption (kWh)"</span><span class="p">)</span>
+
+<span class="n">texts</span> <span class="o">=</span> <span class="p">[</span><span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span> <span class="n">yi</span><span class="p">,</span> <span class="n">l</span><span class="p">)</span> <span class="k">for</span> <span class="n">xi</span><span class="p">,</span> <span class="n">yi</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">df_joint</span><span class="p">[</span><span class="s2">"AVG_REVENUE"</span><span class="p">],</span> <span class="n">df_joint</span><span class="p">[</span><span class="s2">"AVERAGE_KWH"</span><span class="p">],</span> <span class="n">df_joint</span><span class="p">[</span><span class="s2">"CITY_FR_TX"</span><span class="p">])]</span>
+<span class="n">adjust_text</span><span class="p">(</span><span class="n">texts</span><span class="p">,</span> <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s2">"-"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"gray"</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/ae03064b0f9da9a2e9ad568a48fe061c3c7eeddce27057efa53ccc91a9ccf60c.png" src="_images/ae03064b0f9da9a2e9ad568a48fe061c3c7eeddce27057efa53ccc91a9ccf60c.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:            AVERAGE_KWH   R-squared:                       0.245
+Model:                            OLS   Adj. R-squared:                  0.200
+Method:                 Least Squares   F-statistic:                     5.502
+Date:                Thu, 05 Nov 2026   Prob (F-statistic):             0.0314
+Time:                        16:31:57   Log-Likelihood:                -127.52
+No. Observations:                  19   AIC:                             259.0
+Df Residuals:                      17   BIC:                             260.9
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+===============================================================================
+                  coef    std err          t      P&gt;|t|      [0.025      0.975]
+-------------------------------------------------------------------------------
+const        1519.2429    285.643      5.319      0.000     916.589    2121.897
+AVG_REVENUE     0.0284      0.012      2.346      0.031       0.003       0.054
+==============================================================================
+Omnibus:                        0.994   Durbin-Watson:                   0.694
+Prob(Omnibus):                  0.608   Jarque-Bera (JB):                0.297
+Skew:                          -0.301   Prob(JB):                        0.862
+Kurtosis:                       3.111   Cond. No.                     1.40e+05
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 1.4e+05. This might indicate that there are
+strong multicollinearity or other numerical problems.
+</pre></div>
+</div>
+</div>
+</div>
+<p>The data shows a clear correlation between revenue and energy consumption, with a confidence greater than 95%, even if the revenue explains only around 25% of the variance in the consumption, meaning that there are other factors that contributes to increase or decrease the energy consumption, of course.
+From one point of view, this is understandable considering that more purchasing power equates to bigger homes and thus higher consumption. However, from another point of view, a bigger revenue should allow for better houses which are more insulated, with more efficient energy systems. Evidently, the first mechanism is more powerful than the second one.</p>
 </section>
 
     <script type="text/x-thebe-config">
@@ -492,7 +589,7 @@ Sibelga publishes the yearly consumption for the Brussels region. Looking at the
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Life cycle assessment</p>
+        <p class="prev-next-title">Life cycle assessment of plug and play solar</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

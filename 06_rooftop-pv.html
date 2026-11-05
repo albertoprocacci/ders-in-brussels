@@ -218,10 +218,12 @@
 
 
 <li class="toctree-l1"><a class="reference internal" href="02_energy-consumption.html">Energy consumption in Brussels</a></li>
-<li class="toctree-l1"><a class="reference internal" href="03_balcony-lca.html">Life cycle assessment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_balcony-lca.html">Life cycle assessment of plug and play solar</a></li>
 <li class="toctree-l1"><a class="reference internal" href="04_balcony-pv-battery.html">Battery storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="05_permitting.html">Permitting</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Rooftop solar</a></li>
+
+
 <li class="toctree-l1"><a class="reference internal" href="07_financing.html">Financing</a></li>
 </ul>
 
@@ -415,9 +417,11 @@
             </div>
             <nav aria-label="Page">
                 <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-many-green-certificates-can-we-get">How many green certificates can we get?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#energy-sharing">Energy sharing</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Rooftop solar</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#green-certificates">Green certificates</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#energy-sharing">Energy sharing</a></li>
 </ul>
+
             </nav>
         </div>
     </div>
@@ -428,35 +432,42 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="rooftop-solar">
+  <section id="rooftop-solar">
 <h1>Rooftop solar<a class="headerlink" href="#rooftop-solar" title="Link to this heading">#</a></h1>
-<p>The installation of rooftop solar is generally more advantageous in terms of area, obstructions and a more advantageous tilt of the solar panels. There is a specific tool developed by Brussels Environment (Carte solaire) that can be used to have a general idea of the potential energy produced by rooftop solar.
-For example, if I run the BE utility, it informs me that my building has 240 m2 of area with good solar potential. In particular, the tool calculates a profit of 7319 Eur in 10 years with 48 solar panels:</p>
+<p>The installation of rooftop solar is generally more advantageous in terms of area, obstructions and a more advantageous tilt of the solar panels compared to a balcony installation.</p>
+<p>Brussels Environment has developed a specific tool (<a class="reference external" href="https://geodata.environnement.brussels/client/solar/">Carte solaire</a>) to obtain a general idea of the potential energy produced by rooftop solar. For example, if I run the BE utility, it informs me that my building has 240 m2 of area with good solar potential. In particular, the tool calculates a profit of 7319 Eur in 10 years with 48 solar panels:</p>
 <ul class="simple">
 <li><p>8500 kWh annual energy production,</p></li>
 <li><p>15518 Eur price of the installation,</p></li>
 <li><p>9874 Eur received from green certificates,</p></li>
 <li><p>12963 Eur of avoided consumption.</p></li>
 </ul>
-<p>However, the tool assumes an energy consumption of around 2000 kWh per year (average consumption in Brussels), while my building contains 16 apartments and thus has a much higher global consumption. It is possible to modify a bit the calculation parameters, but not that much.
-We can perform the same calculations we did for the balcony setup using pvlib.
-For my calculation, I have assumed the following setup:
-24 solar panels
-Each solar panel has an area of 2.22 m2 and a peak power output of 500 W
-The overall efficiency is 85%
-The panels are facing SW (223 degrees)
-They are tilted at the optimal angle of 33 degrees</p>
+<p>However, the tool assumes an energy consumption of around 2000 kWh per year (average consumption in Brussels), while my building contains 16 apartments and thus has a much higher global consumption. It is possible to modify a bit the calculation parameters, but not that much.</p>
+<p>As I did for the balcony installation in the first <a class="reference internal" href="01_balcony-pv-production.html"><span class="std std-doc">chapter</span></a>, I will perform the same calculations using pvlib, assuming the following setup:</p>
+<ul class="simple">
+<li><p>24 solar panels,</p></li>
+<li><p>Each solar panel has an area of 2.22 m2 and a peak power output of 500 W,</p></li>
+<li><p>The overall efficiency is 85%,</p></li>
+<li><p>The panels are facing SW (223 degrees),</p></li>
+<li><p>They are tilted at the optimal angle of 33 degrees.</p></li>
+</ul>
 <p>Given these specifications, the yearly production of energy from the solar panels fluctuates around 11 MWh and 12.4 MWh.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Compute production</span>
-
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pvlib</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pvlib.iotools</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_pvgis_hourly</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.dates</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mdates</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">font_manager</span> <span class="k">as</span> <span class="n">fm</span>
+<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">Path</span><span class="p">(</span><span class="s2">"fonts"</span><span class="p">)</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">"*.ttf"</span><span class="p">):</span>   <span class="c1"># path relative to the notebook</span>
+    <span class="n">fm</span><span class="o">.</span><span class="n">fontManager</span><span class="o">.</span><span class="n">addfont</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">"font.family"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Montserrat"</span>
+
 
 <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">,</span> <span class="n">alt</span> <span class="o">=</span> <span class="mf">50.817205</span><span class="p">,</span> <span class="mf">4.377434</span><span class="p">,</span> <span class="mf">105.452</span>
 <span class="n">azimuth</span> <span class="o">=</span> <span class="mi">223</span>          <span class="c1"># vertical, south-facing (pvlib: 180 = south)</span>
@@ -479,9 +490,6 @@ They are tilted at the optimal angle of 33 degrees</p>
     <span class="n">map_variables</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">slope</span> <span class="o">=</span> <span class="n">meta</span><span class="p">[</span><span class="s2">"inputs"</span><span class="p">][</span><span class="s2">"mounting_system"</span><span class="p">][</span><span class="s2">"fixed"</span><span class="p">][</span><span class="s2">"slope"</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">slope</span><span class="p">)</span>  <span class="c1"># {'value': ..., 'optimal': True}</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">slope</span><span class="p">[</span><span class="s2">"value"</span><span class="p">])</span>
-
 <span class="n">data</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tz_convert</span><span class="p">(</span><span class="s2">"Europe/Brussels"</span><span class="p">)</span>
 
 <span class="n">site</span> <span class="o">=</span> <span class="n">pvlib</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="n">Location</span><span class="p">(</span><span class="n">latitude</span><span class="o">=</span><span class="n">lat</span><span class="p">,</span> <span class="n">longitude</span><span class="o">=</span><span class="n">lon</span><span class="p">,</span> <span class="n">tz</span><span class="o">=</span><span class="n">tz</span><span class="p">,</span> <span class="n">altitude</span><span class="o">=</span><span class="n">alt</span><span class="p">)</span>
@@ -505,12 +513,6 @@ They are tilted at the optimal angle of 33 degrees</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{'value': 33, 'optimal': True}
-33
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -518,9 +520,9 @@ They are tilted at the optimal angle of 33 degrees</p>
 <span class="n">day_end</span> <span class="o">=</span> <span class="s2">"2023-10-11 23:59"</span>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">"poa_direct_corr"</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">day</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"POA direct corrected"</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">'k'</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">"poa_diffuse"</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">day</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"POA diffuse"</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">'k'</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">'--'</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">"poa_global"</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">day</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"POA global"</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span><span class="s1">'k'</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">"poa_direct_corr"</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">day</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"POA direct corrected"</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">'#043122'</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">"poa_diffuse"</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">day</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"POA diffuse"</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">'#C03C04'</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">'--'</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">"poa_global"</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">day</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"POA global"</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span><span class="s1">'#043122'</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">mdates</span><span class="o">.</span><span class="n">DateFormatter</span><span class="p">(</span><span class="s2">"%H:%M"</span><span class="p">,</span> <span class="n">tz</span><span class="o">=</span><span class="n">tz</span><span class="p">))</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Irradiance [W/m²]"</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Irradiance on </span><span class="si">{</span><span class="n">day</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
@@ -532,7 +534,7 @@ They are tilted at the optimal angle of 33 degrees</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/d40c80313c55789a74871c293de718e38f1210f38a769b51dbfb27c302511953.png" src="_images/d40c80313c55789a74871c293de718e38f1210f38a769b51dbfb27c302511953.png" />
+<img alt="_images/03f33e18991b9baaa260d779e73587e1baca6f5118b877dc4beef439d79b1a7f.png" src="_images/03f33e18991b9baaa260d779e73587e1baca6f5118b877dc4beef439d79b1a7f.png" />
 </div>
 </div>
 <p>If we compare with the irradiance collected by the balcony solar panel, we can see that the rooftop solar panel can intercept also the afternoon light (15:00-18:00), which is blocked by the buildings for the balcony solar panel.</p>
@@ -571,7 +573,7 @@ They are tilted at the optimal angle of 33 degrees</p>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">yearly</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">'E_prod'</span><span class="p">]</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s2">"YE"</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">yearly</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">yearly</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'black'</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">yearly</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">yearly</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'#043122'</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Year"</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mf">2018.5</span><span class="p">,</span> <span class="mf">2023.5</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Energy [kWh]"</span><span class="p">)</span>
@@ -582,7 +584,7 @@ They are tilted at the optimal angle of 33 degrees</p>
 
 <span class="n">monthly_2023</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">"2023"</span><span class="p">,</span> <span class="s2">"E_prod"</span><span class="p">]</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s2">"ME"</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">monthly_2023</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">monthly_2023</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'black'</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">monthly_2023</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">monthly_2023</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'#043122'</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Month"</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">12.5</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Energy [kWh]"</span><span class="p">)</span>
@@ -594,29 +596,30 @@ They are tilted at the optimal angle of 33 degrees</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/c81b802fa9672611372a5d1aef41d94a99562ebc76cc4375e1ca0ff073d612fe.png" src="_images/c81b802fa9672611372a5d1aef41d94a99562ebc76cc4375e1ca0ff073d612fe.png" />
+<img alt="_images/7523dc027d9018cafbfce373a42b4a5f6a72f6476927243dc3483c591b564706.png" src="_images/7523dc027d9018cafbfce373a42b4a5f6a72f6476927243dc3483c591b564706.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Average yearly production: 11579.44 kWh/year
 </pre></div>
 </div>
-<img alt="_images/205e5f9bf072efa7f4c8906b54572169d71ef9f889830585bdf742464d430367.png" src="_images/205e5f9bf072efa7f4c8906b54572169d71ef9f889830585bdf742464d430367.png" />
+<img alt="_images/66abe42ba58d2fb9f070ce6c125a6ecd80ad5476a329432f81b0bc42b1b16691.png" src="_images/66abe42ba58d2fb9f070ce6c125a6ecd80ad5476a329432f81b0bc42b1b16691.png" />
 </div>
 </div>
 <p>If we assume the energy cost to be around 0.3 Eur kWh, this would correspond to a saving of around 21473.36 Eur, which is much more than the one predicted by the Carte Solaire, probably due to the much larger production of energy predicted by pvlib, and the assumed energy cost. Assuming a price of 0.05 Eur/kWh, the amount of electricity sold to the market corresponds to 2210.82 Eur.</p>
-<p>On top of this, we need to consider the money collected by selling green certificates. Green certificates are a mechanism to support the production of renewable energy: each year, suppliers of energy (like Engie, Luminus, TotalEnergies, etc.) are forced to buy a quota of green certificates set by the market regulator BRUGEL. These green certificates are awarded by BRUGEL to the producers of green energy from solar panels. The price of green certificates is assigned with an offer/demand logic through a public market, but it has a minimum guaranteed price of 65 Eur. Technically, a green certificate is granted every time an emission of 217 kg of CO2 is avoided.
-The installation needs to be certified to be eligible for green certificates, after that it has the right to claim green certificates for 10 years.</p>
-<section id="how-many-green-certificates-can-we-get">
-<h2>How many green certificates can we get?<a class="headerlink" href="#how-many-green-certificates-can-we-get" title="Link to this heading">#</a></h2>
+</section>
+<section id="green-certificates">
+<h1>Green certificates<a class="headerlink" href="#green-certificates" title="Link to this heading">#</a></h1>
+<p>On top of this, we need to consider the money collected by selling green certificates. Green certificates are a mechanism to support the production of renewable energy: each year, energy suppliers (like Engie, Luminus, TotalEnergies, etc.) are forced to buy a quota of green certificates set by the market regulator BRUGEL. These green certificates are awarded by BRUGEL to the producers of green energy from solar panels. The price of green certificates is assigned with an offer/demand logic through a public market, but it has a minimum guaranteed price of 65 Eur. Technically, a green certificate is granted every time an emission of 217 kg of CO2 is avoided. The installation needs to be certified to be eligible for green certificates, after that it has the right to claim green certificates for 10 years.</p>
 <p>For photovoltaic panels, 1.81 green certificates are granted for each MWh produced. However, this rate is modified depending on the peak installed power. In our case, the rate is actually 1.739 green certificates per MWh. With an average of around 11.5 MWh per year, we should get 20.14 green certificates per year, corresponding to a minimum of 1308.88 Eur/year, or 13088.82 Eur in 10 years. The minimum is what we would get if we sold all the certificates to Elia at the minimum price of 65 Eur/CV. However, in the last 2 years the average price on the market has been a bit higher at around 70 Eur/CV, which would give us 14095.65 Eur in 10 years.</p>
 </section>
 <section id="energy-sharing">
-<h2>Energy sharing<a class="headerlink" href="#energy-sharing" title="Link to this heading">#</a></h2>
+<h1>Energy sharing<a class="headerlink" href="#energy-sharing" title="Link to this heading">#</a></h1>
 <p>Let’s say that we manage to agree on investing in rooftop solar, and we end up installing 12 kW of solar panels. Once the panels start producing energy, this energy then needs to be redistributed among the people living in the building.
-There are 3 ways of energy sharing that are envisaged by the Brussels authorities:
-Sharing energy between two people,
-Sharing energy in a single building,
-Sharing energy across multiple buildings.</p>
-<p>The second option is the most interesting in my case, so let’s focus on the energy sharing in a single building.
-As outlined by BE, the first step is to contact Sibelga and introduce a smart meter request for all the apartments in the building. Smart meters are essential to apply any type of repartition logic.</p>
+There are 3 ways of energy sharing that are envisaged by the Brussels authorities:</p>
+<ul class="simple">
+<li><p>Sharing energy between two people,</p></li>
+<li><p>Sharing energy in a single building,</p></li>
+<li><p>Sharing energy across multiple buildings.</p></li>
+</ul>
+<p>The second option is the most interesting in my case, so let’s focus on the energy sharing in a single building. As outlined by <a class="reference external" href="https://guidebatimentdurable.brussels/sites/default/files/documents/2026-05/Flyer%20Partage%20au%20sein%20d%27un%20m%C3%AAme%20b%C3%A2timent.pdf">Brussels Environment</a>, the first step is to contact Sibelga and introduce a smart meter request for all the apartments in the building. Smart meters are essential to apply any type of repartition logic.</p>
 <p>The second step is to select a way to repartition the energy. The choice is between:</p>
 <ul class="simple">
 <li><p>Fixed repartition (based on the number of apartments or weighted by the initial investment)</p>
@@ -627,12 +630,10 @@ As outlined by BE, the first step is to contact Sibelga and introduce a smart me
 <li><p>Prorata repartition: each consumer gets a share of the energy produced based on the percentage of the total energy that they are consuming at that moment (every 15 minutes)</p></li>
 <li><p>Hybrid repartition: first round is fixed, second round is prorata.</p></li>
 </ul>
-<p>Sibelga can also accept customized methods for repartition.
-The objective of the repartition methodology is to match production with consumption as much as possible while fairly redistributing the profits. The fixed repartition is the most fair, but the less efficient leading to a greater grid injection. The prorata is the most efficient but less fair if there is a great imbalance between the consumption. The fixed repartition with multiple rounds and the hybrid repartition propose a balance between the two.</p>
+<p>Sibelga can also accept customized methods for repartition. The objective of the repartition methodology is to match production with consumption as much as possible while fairly redistributing the profits. The fixed repartition is the most fair, but the less efficient leading to a greater grid injection. The prorata is the most efficient but less fair if there is a great imbalance between the consumption. The fixed repartition with multiple rounds and the hybrid repartition propose a balance between the two.</p>
 <p>The third step is to sign a document to fix the energy price. Bruxelles Environment says that it offers an excel file to compute the optimal energy price but I wasn’t able to find it.
 The last step is to introduce an energy sharing form at Sibelga.</p>
 <p>Another option is to simply contact an investor and share the roof of the building. The investor will take care of installing the solar panel, while the owner(s) of the building will collect a rent that is negotiated with the investor.</p>
-</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -701,9 +702,11 @@ The last step is to introduce an energy sharing form at Sibelga.</p>
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-many-green-certificates-can-we-get">How many green certificates can we get?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#energy-sharing">Energy sharing</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Rooftop solar</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#green-certificates">Green certificates</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#energy-sharing">Energy sharing</a></li>
 </ul>
+
   </nav></div>
 
 </div></div>

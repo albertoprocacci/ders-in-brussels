@@ -65,7 +65,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Permitting" href="05_permitting.html" />
-    <link rel="prev" title="Life cycle assessment" href="03_balcony-lca.html" />
+    <link rel="prev" title="Life cycle assessment of plug and play solar" href="03_balcony-lca.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -214,10 +214,12 @@
 
 
 <li class="toctree-l1"><a class="reference internal" href="02_energy-consumption.html">Energy consumption in Brussels</a></li>
-<li class="toctree-l1"><a class="reference internal" href="03_balcony-lca.html">Life cycle assessment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_balcony-lca.html">Life cycle assessment of plug and play solar</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Battery storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="05_permitting.html">Permitting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="06_rooftop-pv.html">Rooftop solar</a></li>
+
+
 <li class="toctree-l1"><a class="reference internal" href="07_financing.html">Financing</a></li>
 </ul>
 
@@ -413,15 +415,16 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="battery-storage">
+  <section id="battery-storage">
 <h1>Battery storage<a class="headerlink" href="#battery-storage" title="Link to this heading">#</a></h1>
-<p>As we have seen before, the absence of energy storage means that we are forced to sell the energy produced by the solar panel to the grid when it exceeds the consumption. However, selling is not the best strategy considering that the selling price is much lower than the buying  price.
-A battery can be used to store the excess production, decoupling in time the moment of generation and the moment of consumption. For this reason, battery storage is becoming more and more popular in combination with solar panels, but it can be also employed alone, because it offers a series of advantages: if we have a dynamic pricing regime, we can charge the battery when the price is low and discharge it when the price is high. Also, it offers some backup power in the event of blackouts.</p>
-<p>To perform the calculations, I will employ the same setup as in the solar panels only case, while adding a battery pack with a capacity of 1.92 kWh and a peak power output of 1200 W. This setup is sold at a price of around 1230 Eur.</p>
+<p>As we have seen before, the absence of energy storage means that we are forced to sell the energy produced by the solar panel to the grid whenever it exceeds the consumption. However, selling is not the best strategy considering that the selling price is much lower than the buying  price.</p>
+<p>A battery can be used to store the excess production, decoupling in time the moment of generation and the moment of consumption. For this reason, battery storage is becoming more and more popular in combination with solar panels. But it can be also employed alone, because it offers a series of advantages: if we have a dynamic pricing regime, we can charge the battery when the price is low and discharge it when the price is high. Also, it offers some backup power in the event of blackouts. Sibelga lists the advantages of battery storage <a class="reference external" href="https://www.sibelga.be/en/connections-meters/renewable-energy/home-batteries/why-a-battery">here</a>.</p>
+<p>To perform the calculations, I will employ the same setup as the balcony solar in <a class="reference internal" href="01_balcony-pv-production.html"><span class="std std-doc">chapter</span></a>, while adding a battery pack with a capacity of 1.92 kWh and a peak power output of 1200 W. This setup is sold at a price of around 1230 Eur.</p>
 <p>I have considered a very simple case in which the battery is charged when the output of the solar panel is greater than the consumption, and it is discharged when the situation is reversed. This does not take into account any optimization based on forecasting the energy price, which is a much harder task but which could potentially optimize the use of the battery.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Compute production</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pvlib</span>
@@ -429,6 +432,11 @@ A battery can be used to store the excess production, decoupling in time the mom
 <span class="kn">from</span><span class="w"> </span><span class="nn">pvlib.temperature</span><span class="w"> </span><span class="kn">import</span> <span class="n">sapm_cell</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.dates</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mdates</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">font_manager</span> <span class="k">as</span> <span class="n">fm</span>
+<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">Path</span><span class="p">(</span><span class="s2">"fonts"</span><span class="p">)</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">"*.ttf"</span><span class="p">):</span>   <span class="c1"># path relative to the notebook</span>
+    <span class="n">fm</span><span class="o">.</span><span class="n">fontManager</span><span class="o">.</span><span class="n">addfont</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">"font.family"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Montserrat"</span>
 
 <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">,</span> <span class="n">alt</span> <span class="o">=</span> <span class="mf">50.817205</span><span class="p">,</span> <span class="mf">4.377434</span><span class="p">,</span> <span class="mf">90.452</span>
 <span class="n">tilt</span><span class="p">,</span> <span class="n">azimuth</span> <span class="o">=</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">223</span>          <span class="c1"># vertical, south-facing (pvlib: 180 = south)</span>
@@ -484,7 +492,14 @@ A battery can be used to store the excess production, decoupling in time the mom
 <span class="n">eta_panel</span> <span class="o">=</span> <span class="mf">0.253</span>
 <span class="n">eta_sys</span> <span class="o">=</span> <span class="mf">0.85</span>
 <span class="n">P_nom</span> <span class="o">=</span> <span class="n">n_panels</span> <span class="o">*</span> <span class="mi">500</span> <span class="c1">#W</span>
-<span class="n">price</span> <span class="o">=</span> <span class="mi">550</span>  <span class="c1">#Eur</span>
+<span class="n">price</span> <span class="o">=</span> <span class="mi">1230</span>  <span class="c1">#Eur</span>
+
+<span class="n">bat_capacity</span> <span class="o">=</span> <span class="mf">1.92</span>  <span class="c1"># kWh</span>
+<span class="n">bat_power</span> <span class="o">=</span> <span class="mi">1200</span>     <span class="c1"># W</span>
+<span class="n">bat_price</span> <span class="o">=</span> <span class="mi">1230</span>     <span class="c1"># Eur</span>
+
+<span class="n">buy_price</span> <span class="o">=</span> <span class="mf">0.30</span>  <span class="c1"># Eur/kWh</span>
+<span class="n">sell_price</span> <span class="o">=</span> <span class="mf">0.05</span>  <span class="c1"># Eur/kWh</span>
 
 <span class="n">gamma</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.0035</span>  <span class="c1"># 1/°C</span>
 <span class="n">power</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">"poa_global"</span><span class="p">]</span><span class="o">*</span> <span class="n">P_nom</span><span class="o">/</span><span class="mi">1000</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">gamma</span><span class="o">*</span><span class="p">(</span><span class="n">temp_cell</span> <span class="o">-</span> <span class="mi">25</span><span class="p">)))</span>
@@ -531,14 +546,7 @@ A battery can be used to store the excess production, decoupling in time the mom
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bat_capacity</span> <span class="o">=</span> <span class="mf">1.92</span>  <span class="c1"># kWh</span>
-<span class="n">bat_power</span> <span class="o">=</span> <span class="mi">1200</span>     <span class="c1"># W</span>
-<span class="n">bat_price</span> <span class="o">=</span> <span class="mi">1230</span>     <span class="c1"># Eur</span>
-
-<span class="n">buy_price</span> <span class="o">=</span> <span class="mf">0.30</span>  <span class="c1"># Eur/kWh</span>
-<span class="n">sell_price</span> <span class="o">=</span> <span class="mf">0.05</span>  <span class="c1"># Eur/kWh</span>
-
-<span class="k">def</span><span class="w"> </span><span class="nf">simulate_battery</span><span class="p">(</span><span class="n">prod</span><span class="p">,</span> <span class="n">load</span><span class="p">,</span> <span class="n">capacity</span><span class="o">=</span><span class="n">bat_capacity</span><span class="p">,</span> <span class="n">power</span><span class="o">=</span><span class="n">bat_power</span><span class="p">,</span> <span class="n">eta</span><span class="o">=</span><span class="mf">0.95</span><span class="p">,</span> <span class="n">soc_min</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">simulate_battery</span><span class="p">(</span><span class="n">prod</span><span class="p">,</span> <span class="n">load</span><span class="p">,</span> <span class="n">capacity</span><span class="o">=</span><span class="n">bat_capacity</span><span class="p">,</span> <span class="n">power</span><span class="o">=</span><span class="n">bat_power</span><span class="p">,</span> <span class="n">eta</span><span class="o">=</span><span class="mf">0.95</span><span class="p">,</span> <span class="n">soc_min</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">"""Greedy dispatch: charge from surplus, discharge to cover deficit. prod/load in kWh per step dt [h]."""</span>
     <span class="n">p_max</span> <span class="o">=</span> <span class="n">power</span> <span class="o">/</span> <span class="mi">1000</span> <span class="o">*</span> <span class="n">dt</span>            <span class="c1"># kWh per step</span>
     <span class="n">e_min</span> <span class="o">=</span> <span class="n">soc_min</span> <span class="o">*</span> <span class="n">capacity</span>
@@ -587,9 +595,9 @@ A battery can be used to store the excess production, decoupling in time the mom
 
 <span class="n">day</span> <span class="o">=</span> <span class="s2">"2023-06-21"</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data_load</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">day</span><span class="p">,</span> <span class="s2">"E_prod"</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Production"</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">'k'</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data_load</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">day</span><span class="p">,</span> <span class="s2">"E_cons"</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Load"</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">'k'</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">'--'</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data_load</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">day</span><span class="p">,</span> <span class="s2">"soc"</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Battery SOC [kWh]"</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">'gray'</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data_load</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">day</span><span class="p">,</span> <span class="s2">"E_prod"</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Production"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'#043122'</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data_load</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">day</span><span class="p">,</span> <span class="s2">"E_cons"</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Load"</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">'#C03C04'</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">'--'</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data_load</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">day</span><span class="p">,</span> <span class="s2">"soc"</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Battery SOC [kWh]"</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">'#7A7A7A'</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">mdates</span><span class="o">.</span><span class="n">DateFormatter</span><span class="p">(</span><span class="s2">"%H:%M"</span><span class="p">,</span> <span class="n">tz</span><span class="o">=</span><span class="n">tz</span><span class="p">))</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Energy [kWh]"</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
@@ -605,14 +613,17 @@ Average yearly total: 167.17 €
 Total over 30 years: 5015.06 €
 </pre></div>
 </div>
-<img alt="_images/f9a1aac98392876f61da2a3fbdd3c07efcce91cb26316b117d7e60f7c8cef9f9.png" src="_images/f9a1aac98392876f61da2a3fbdd3c07efcce91cb26316b117d7e60f7c8cef9f9.png" />
+<img alt="_images/832e9e36aca39a4dd3891ce5ddc41a0c773ec96f921ef222807f52bb13908262.png" src="_images/832e9e36aca39a4dd3891ce5ddc41a0c773ec96f921ef222807f52bb13908262.png" />
 </div>
 </div>
-<p>Given this, and considering again the same 5 years period between 2019 and 2023, the results are the following:
-Money saved: 835.64 Eur
-Money earned: 0.2 Eur
-Total 835.84 Eur</p>
-<p>The battery substantially improves the amount of energy that is self-consumed. Basically no energy is sold to the grid, and the total money earned is around 300 Eur higher. However, the price of the setup is also more than double meaning that it would take more time to break even. At a yearly rate of 167.17 Eur, the total of the investment over 30 years would be 5015.02 Eur</p>
+<p>The graph shows the production and load relative to the 21th of June 2023, together with the battery state of charge. The battery is charged during the day (12:00-19:00) when the production is greater then the consumption. Then, it is discharged during the evening. Basically, the role of the battery is to spread the production across the day. This is beneficial also from the point of view of the distribution system operator, because a greater share of autoconsumption reduces overloading on the distribution lines.</p>
+<p>Considering again the same 5 years period between 2019 and 2023, the results are the following:</p>
+<ul class="simple">
+<li><p>Money saved: 835.64 Eur,</p></li>
+<li><p>Money earned: 0.2 Eur,</p></li>
+<li><p>Total 835.84 Eur.</p></li>
+</ul>
+<p>The battery substantially improves the amount of energy that is self-consumed. Basically no energy is sold to the grid, and the total money earned is around 300 Eur higher. However, the price of the setup is also more than double meaning that it would take more time to break even. At a yearly rate of 167.17 Eur, the total of the investment over 30 years would be 5015.02 Eur.</p>
 </section>
 
     <script type="text/x-thebe-config">
@@ -651,7 +662,7 @@ Total 835.84 Eur</p>
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Life cycle assessment</p>
+        <p class="prev-next-title">Life cycle assessment of plug and play solar</p>
       </div>
     </a>
     <a class="right-next"
