@@ -6,20 +6,28 @@ I imagine that these questions are the same for a lot of Belgians, especially th
 
 Also, my research at [SWIFFT](https://www.swifft.be/) focuses on modeling energy systems to plan the energy transition, and I thought it would be interesting to discuss some of the challenges associated with the energy transition through the lens of home renovations.
 
-As a disclaimer, I'm not an expert in home renovation in Brussels or a qualified electrician, so take this considerations with a grain of salt.
+In the coming chapters, I will:
+
+* evaluate whether installing solar panels is technically feasible in my building,
+* estimate their potential electricity production,
+* assess whether battery storage is economically worthwhile,
+* review the regulatory and permitting requirements in Brussels,
+* and compare the costs, savings, and environmental benefits of different options.
+
+As a disclaimer, I am neither a home-renovation expert nor a qualified electrician. This blog documents my learning process and should not be considered professional advice.
 
 ## Brief technological recap
 
-Before diving into the techno-economical analysis, I will give a brief overview of the main technologies that can be installed on a residential level. These are often called Distributed Energy Resources (DERs), because they are geographically spread in the urban environment instead of being localized, as traditional energy systems. This [page](https://environnement.brussels/citoyen/agir-pour-lenvironnement/renover-et-construire/quest-ce-que-lenergie-verte) provides a nice overview by Brussels Environment of residential green technologies that can be considered in Brussels. In the rest of this blog, I will focus mainly on two types of technologies: solar panels and battery storage.
+Before diving into the techno-economic analysis, I will give a brief overview of the main technologies that can be installed on a residential level. These are often called Distributed Energy Resources (DERs), because they are geographically spread in the urban environment instead of being localized, as traditional energy systems. This [page](https://environnement.brussels/citoyen/agir-pour-lenvironnement/renover-et-construire/quest-ce-que-lenergie-verte) provides a nice overview by Brussels Environment of residential green technologies that can be considered in Brussels. In the rest of this blog, I will focus mainly on two types of technologies: solar panels and battery storage.
 
 Solar panels are devices that convert solar electromagnetic emission into electric current. They are also called photovoltaic (PV) panels to distinguish them from solar thermal panels, which convert sunlight into heat. I will focus on PV panels so I will use the term solar panels and PV panels interchangeably.
-Solar panels produce electricity in the form of direct current, at a relatively low voltage (12 to 48 V). However, the current that we conventionally use in our homes is alternated current at a much higher voltage of 240 V. This means that to couple solar panels with the residential electric circuit we need to convert the direct, low voltage current into alternated, high voltage current through the use of an inverter.
+Solar panels produce electricity in the form of direct current, at a relatively low voltage. However, the current that we conventionally use in our homes is alternated current at a much higher voltage of 230 V. This means that to couple solar panels with the residential electric circuit we need to convert the direct, low voltage current into alternated, high voltage current through the use of an inverter.
 
 In this [page](https://environnement.brussels/blog-citoyen/dossiers/les-panneaux-solaires-en-10-questions), you can find a nice article by Brussels Environment explaining residential solar panels in ten questions.
 
 Nowadays, PV systems are also coupled with electric storage in the form of batteries. As traditional cellphone batteries, electric storage converts the electric energy into chemical energy, which is released when needed. Electric storage is particularly useful in combination with PV panels because it allows to spread the consumption of renewable energy throughout the day.
 
-In terms of measurements, the power produced by the solar panels is defined as the amount of sunlight converted into electricity every second, measured in Watts (W). The producers of the solar panels list its peak power, which is the electrical power generated when sunlight perpendicular to the solar panel hits it with an irradiance of 1000 W/m2. This reference irradiance mimics the average amount of sunlight hitting the Earth.
+In terms of measurements, the power produced by the solar panels is defined as the amount of sunlight converted into electricity every second, measured in Watts (W). Manufacturers specify the peak power of a solar panel under Standard Test Conditions (STC), which assume sunlight with an irradiance of 1000 W/m² striking the panel under controlled laboratory conditions.
 
 The electrical energy produced by a solar panel is obtained by summing the electrical power across a specific time interval. For example, a panel generating 1000 W for an hour will have generated a 1000 Watt hour (Wh) or 1 kWh. Thus, the W is a measure of power (energy per unit of time) while the kWh is a measure of energy. To give an example, my hairdryer has a power of 2000 W, meaning that if I run it continuously for half an hour I will have consumed 1 kWh of electrical energy.  
 
@@ -27,9 +35,9 @@ Batteries store electrical energy, and their capacity is also generally listed i
 
 The energy meter connected to our home's electrical panel measures the amount of energy consumed in kWh. Traditional analogical meters cannot be read remotely. Every so often the amount of energy consumed must be reported to the electricity provider to calculate the amount of money that needs to be balanced. Recently, Sibelga, Brussels distribution system operator, has started replacing the old meters with new [smart meters](https://www.sibelga.be/en/connections-meters/smart-meters) that can be read remotely and track the energy consumption every 15 minutes.
 
-Smart meters are a technological requirement to go from the conventional energy system to a new energy system in which individuals can be at the same time producers and consumers (prosumers) of electricity. Without smart meters, it would be impossible, for example, to coordinate the sharing of electricity produced by rooftop solar across different apartments or  buildings.
+Smart meters are a technological requirement to go from the conventional energy system to a new energy system in which individuals can be at the same time producers and consumers (prosumers) of electricity. Without smart meters, large-scale coordination of distributed resources such as rooftop solar systems, batteries, and energy sharing schemes would be significantly more difficult.
 
-Smart meters also represent a huge opportunity from a research point of view, because of the quantity of data that can be gathered and analyzed on the consumption patterns. This data can be employed to develop more efficient methods for energy allocation, for the coordination of different energy resources needed to cover the energy requirements, or for the prediction of different scenarios of energy procurements. As always with data collection, they also pose quite an important concern from a privacy point of view, and robust safeguides have to be put in place to avoid exposing sensitive information.
+Smart meters also represent a huge opportunity from a research point of view, because of the quantity of data that can be gathered and analyzed on the consumption patterns. This data can be employed to develop more efficient methods for energy allocation, for the coordination of different energy resources needed to cover the energy requirements, or for the prediction of different scenarios of energy procurements. As with any large-scale data collection effort, smart-meter data raises important privacy concerns. Appropriate safeguards are therefore needed to ensure that detailed consumption information cannot be misused or expose sensitive household behavior.
   
 ## The authorities
 
