@@ -213,11 +213,13 @@
 <li class="toctree-l1"><a class="reference internal" href="01_balcony-pv-production.html">Balcony solar panels</a></li>
 
 
+
 <li class="toctree-l1"><a class="reference internal" href="02_energy-consumption.html">Energy consumption in Brussels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="03_balcony-lca.html">Life cycle assessment of plug and play solar</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Battery storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="05_permitting.html">Permitting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="06_rooftop-pv.html">Rooftop solar</a></li>
+
 
 
 <li class="toctree-l1"><a class="reference internal" href="07_financing.html">Financing</a></li>
@@ -417,10 +419,11 @@
                   
   <section id="battery-storage">
 <h1>Battery storage<a class="headerlink" href="#battery-storage" title="Link to this heading">#</a></h1>
-<p>As we have seen before, the absence of energy storage means that we are forced to sell the energy produced by the solar panel to the grid whenever it exceeds the consumption. However, selling is not the best strategy considering that the selling price is much lower than the buying  price.</p>
-<p>A battery can be used to store the excess production, decoupling in time the moment of generation and the moment of consumption. For this reason, battery storage is becoming more and more popular in combination with solar panels. But it can be also employed alone, because it offers a series of advantages: if we have a dynamic pricing regime, we can charge the battery when the price is low and discharge it when the price is high. Also, it offers some backup power in the event of blackouts. Sibelga lists the advantages of battery storage <a class="reference external" href="https://www.sibelga.be/en/connections-meters/renewable-energy/home-batteries/why-a-battery">here</a>.</p>
+<p>As we have seen before, the absence of energy storage means that we are forced to sell the energy produced by the solar panel to the grid whenever it exceeds the consumption. However, selling electricity is generally less attractive because the export tariff is much lower than the retail electricity price.</p>
+<p>A battery can be used to store the excess production, decoupling in time the moment of generation and the moment of consumption. For this reason, battery storage is becoming more and more popular in combination with solar panels. But it can be also employed alone, because it offers a series of advantages: under dynamic electricity tariffs, a battery can be charged during low-price periods and discharged during high-price periods. Also, it offers some backup power in the event of blackouts. Sibelga lists the advantages of battery storage <a class="reference external" href="https://www.sibelga.be/en/connections-meters/renewable-energy/home-batteries/why-a-battery">here</a>.</p>
 <p>To perform the calculations, I will employ the same setup as the balcony solar in <a class="reference internal" href="01_balcony-pv-production.html"><span class="std std-doc">chapter</span></a>, while adding a battery pack with a capacity of 1.92 kWh and a peak power output of 1200 W. This setup is sold at a price of around 1230 Eur.</p>
-<p>I have considered a very simple case in which the battery is charged when the output of the solar panel is greater than the consumption, and it is discharged when the situation is reversed. This does not take into account any optimization based on forecasting the energy price, which is a much harder task but which could potentially optimize the use of the battery.</p>
+<p>I have considered a very simple case in which the battery is charged when the output of the solar panel is greater than the consumption, and it is discharged when the situation is reversed. This does not take into account any optimization based on forecasts of the energy price or solar production, which is a much harder task but which could potentially optimize the use of the battery.</p>
+<p>Using the same balcony PV system analyzed in the previous chapter, adding a 1.92 kWh battery increases annual savings from approximately 122 €/year to 167 €/year. However, because the setup costs an additional 680 Eur, the improvement is relatively modest from a purely economic perspective.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Compute production</span>
@@ -624,6 +627,7 @@ Total over 30 years: 5015.06 €
 <li><p>Total 835.84 Eur.</p></li>
 </ul>
 <p>The battery substantially improves the amount of energy that is self-consumed. Basically no energy is sold to the grid, and the total money earned is around 300 Eur higher. However, the price of the setup is also more than double meaning that it would take more time to break even. At a yearly rate of 167.17 Eur, the total of the investment over 30 years would be 5015.02 Eur.</p>
+<p>Unlike solar panels, batteries typically experience significant degradation over time. The present calculation assumes no loss of capacity and no replacement costs, and therefore likely overestimates the long-term economic benefit.</p>
 </section>
 
     <script type="text/x-thebe-config">

@@ -217,11 +217,13 @@
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Balcony solar panels</a></li>
 
 
+
 <li class="toctree-l1"><a class="reference internal" href="02_energy-consumption.html">Energy consumption in Brussels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="03_balcony-lca.html">Life cycle assessment of plug and play solar</a></li>
 <li class="toctree-l1"><a class="reference internal" href="04_balcony-pv-battery.html">Battery storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="05_permitting.html">Permitting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="06_rooftop-pv.html">Rooftop solar</a></li>
+
 
 
 <li class="toctree-l1"><a class="reference internal" href="07_financing.html">Financing</a></li>
@@ -420,6 +422,7 @@
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Balcony solar panels</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-the-solar-radiation">Calculating the solar radiation</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#consumption">Consumption</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaway">Key takeaway</a></li>
 </ul>
 
             </nav>
@@ -436,7 +439,8 @@
 <h1>Balcony solar panels<a class="headerlink" href="#balcony-solar-panels" title="Link to this heading">#</a></h1>
 <p>Up until recently, the only option to have local production of electricity through solar panels would have been through the installation of rooftop solar panels. The rooftop is generally the most efficient place to install solar panels because it generally has a large area and direct view of the sky. However, rooftop solar also requires electrical works to connect the solar panels and inverters to the home’s electrical system.</p>
 <p>Recently, a new type of solar system has been introduced on the market, which does not require any type of electrical work because it connects directly to the standard electrical plugs. For this reason, it is called “plug and play” solar. This lower technical requirement in theory provides much easier access to solar generation also to renters, who could install the solar panels on their balcony, for example. However, plug and play solar also comes with a series of constraints. A smart meter is required, the power of the inverter is limited to only 800 W,<a class="footnote-reference brackets" href="#id2" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> and urbanistic requirements also have to be taken into consideration. Finally, plug and play solar is not eligible for green certificates.</p>
-<p>The question is then, does it make sense to buy them? This depends of course on the amount of energy that can be harvested from the sun, and the electric energy that is consumed by the dwelling. Below, I will provide the calculation for my apartment, in the hope that it can be a useful rule of thumb. The code is also provided, so it can be adapted to different situations.</p>
+<p>The question is then, does it make sense to buy them? This depends of course on the amount of energy that can be harvested from the sun, and the electric energy that is consumed by the dwelling. Using two 500 W balcony solar panels on my southwest-facing balcony, I estimate an annual production of about 560 kWh/year, corresponding to roughly 28% of my annual electricity consumption.</p>
+<p>Below, I will provide the calculation for my apartment, in the hope that it can be a useful rule of thumb. The code is also provided, so it can be adapted to different situations.</p>
 </section>
 <section id="calculating-the-solar-radiation">
 <h1>Calculating the solar radiation<a class="headerlink" href="#calculating-the-solar-radiation" title="Link to this heading">#</a></h1>
@@ -448,7 +452,7 @@
 <li><p>The cloud cover, which is, of course, quite a big problem in Brussels.</p></li>
 </ul>
 <p>Historic irradiance data (i.e., the amount of solar energy hitting a specific surface) based on the azimuth and the slope can be easily retrieved using a tool such as <a class="reference external" href="https://joint-research-centre.ec.europa.eu/photovoltaic-geographical-information-system-pvgis_en">PVGIS</a>: you need to provide the address of your home, then you have to fill the information related to the orientation, slope and horizon (i.e., the occlusion caused by the surrounding buildings). The balcony in my apartment is located in direction SW (azimuth = 223 degrees) and the slope of a potential PV panel attached to the balcony would be 90 degrees.</p>
-<p>Unfortunately, the information regarding the horizon is much harder to get. The way I managed to do it is by exploiting the UrbIS Buildings dataset. This dataset contains the 3D data for all the buildings in the Brussels Region. The data can be downloaded and analyzed using the geopandas Python library. Doing this, I managed to reconstruct the horizon elevation that I see from my balcony for each azimuthal degree.</p>
+<p>Unfortunately, the information regarding the horizon is much harder to obtain. The way I managed to do it is by exploiting the UrbIS Buildings dataset. This dataset contains the 3D data for all the buildings in the Brussels Region. The data can be downloaded and analyzed using the geopandas Python library. Doing this, I managed to reconstruct the horizon elevation that I see from my balcony for each azimuthal degree.</p>
 <p>In my calculations, I used the <a class="reference external" href="https://pvlib-python.readthedocs.io/en/stable/">pvlib</a> Python library, which is a community based tool evolved from an original package developed by the SANDIA national laboratories.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -533,7 +537,7 @@
 </div>
 <p>As you can see, I have quite a big building in front of my balcony. During the summer months, the sun is higher than the building for most of the day. However, this means also that it will hit the solar panel with a large angle, which is not ideal. During the winter months, the solar panel will get a bit of sunlight only during late morning.</p>
 <p>Through pvlib, I have also retrieved the solar irradiance data for the last 5 years available, from 2018 to 2023. This data has hourly information on the irradiance, divided into the direct energy (the solar rays that hit the panel directly and that can be blocked by the buildings) and diffuse energy, which is the light scattered by the sky and coming from all directions.</p>
-<p>For example, on the 11th of October 2023, the Sun would have hit directly my solar panel only between 11:00 and 15:00, while the diffuse radiation would have contributed from 9:00 to 18:00. POA stands for plane of array, meaning that we are taking into account the tilt of the surface when computing the irradiance.</p>
+<p>For example, on the 11th of October 2023, the Sun would have directly illuminated my solar panel only between 11:00 and 15:00, while the diffuse radiation would have contributed from 9:00 to 18:00. POA stands for plane of array, meaning that we are taking into account the tilt of the surface when computing the irradiance.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># PVGIS data for 5 years</span>
@@ -698,9 +702,9 @@
 </section>
 <section id="consumption">
 <h1>Consumption<a class="headerlink" href="#consumption" title="Link to this heading">#</a></h1>
-<p>Unfortunately, I don’t have a smart meter yet so I don’t know precisely what is the hourly distribution of my energy consumption yet. To have a first order approximation, first I will assume that my apartment consumes the same as the average yearly consumption in Ixelles, which is 2000 kWh/year. In the next <a class="reference internal" href="02_energy-consumption.html"><span class="std std-doc">chapter</span></a>, I will have a more in depth look at the energy consumption in the Brussels region.</p>
+<p>Unfortunately, I don’t have a smart meter so I don’t know precisely what is the hourly distribution of my energy consumption. As a first-order approximation, I will assume that my apartment consumes the same as the average yearly consumption in Ixelles, which is 2000 kWh/year. In the next <a class="reference internal" href="02_energy-consumption.html"><span class="std std-doc">chapter</span></a>, I will have a more in depth look at the energy consumption in the Brussels region.</p>
 <p>Given that we have computed an annual PV generation in the order of 600 kWh, this represents almost a third of the energy consumed, which is not an insignificant contribution. However, this does not automatically mean that my annual energy bill would be lower by a third. In fact, to understand how much I would save from installing solar panels I need to consider the temporal distribution of my consumption. If, for example, I’m running my dishwasher while the sun is out, then I will actually use solar energy to wash my dishes instead of using the grid’s current.  But of course it’s impossible to concentrate all the energy consumption when the sun is shining. If the generation of electrical energy is greater than the consumption, then the surplus is injected and sold to the grid.</p>
-<p>This mismatch between consumption and generation would not be a big deal from an economical point of view if the cost of electricity bought from the grid was the same as the price of electricity sold to the grid. Unfortunately, these two are quite different: we can consider that the cost of electricity in Brussels is around 0.2-0.3 Eur/kWh while the price paid to the electricity produced by the PV panels and injected into the grid is around 0.05-0.1 Eur/kWh.</p>
+<p>This mismatch between consumption and generation would not be a major issue from an economic point of view if the cost of electricity bought from the grid was the same as the price of electricity sold to the grid. Unfortunately, these two are quite different: we can consider that the cost of electricity in Brussels is around 0.2-0.3 Eur/kWh while the price paid to the electricity produced by the PV panels and injected into the grid is around 0.05-0.1 Eur/kWh.</p>
 <p>This is the reason why electric storage, in the form of batteries, is very often paired with PV panels. The idea is to store the excess energy produced during the day and use it during the evening, which is generally when most of the consumption takes place.</p>
 <p>To understand what would be the economical benefit of PV panels setup, with and without batteries, it is then necessary to know the temporal distribution of my electrical consumption. The second assumption is to assume that my consumption is distributed similarly to the real load profile published by Synergrid: given a total yearly consumption, it calculates how this consumption is distributed over the year in 15 min intervals.</p>
 <p>Given my yearly consumption of 2000 kWh, the distribution of consumption and production looks like this:</p>
@@ -810,8 +814,19 @@ Total over 30 years: 3656.73 €
 <li><p>Money earned: 45.31 Eur,</p></li>
 <li><p>Total: 610.26 Eur,</p></li>
 </ul>
-<p>meaning that I would break even with the investment at around 5 years after installation. Given that the solar panels are generally rated for around 25/30 years of operation, this can be interesting from an economic point of view. In particular, at a yearly rate of 122.05 Eur the investment for 30 years would yield 3661.57 euros.</p>
-<p>Of course this depends on the cost of electricity, and the investment would make less sense if you are able to secure a cheaper contract.</p>
+<p>meaning that the investment would break even roughly 5 years after installation. Given that the solar panels are generally rated for around 25/30 years of operation, this can be interesting from an economic point of view. In particular, at an average annual rate of 122 Eur the investment would generate 3660 Eur in 30 years. Of course this depends on the cost of electricity, and the investment would make less sense if you are able to secure a cheaper contract.</p>
+<p>The calculation ignores panel degradation and equipment replacement. Including these effects would somewhat reduce the total lifetime benefit.</p>
+</section>
+<section id="key-takeaway">
+<h1>Key takeaway<a class="headerlink" href="#key-takeaway" title="Link to this heading">#</a></h1>
+<p>For my southwest-facing balcony in Brussels:</p>
+<ul class="simple">
+<li><p>Two 500 W plug-and-play panels produce about 560 kWh/year.</p></li>
+<li><p>This represents roughly 28% of my annual electricity consumption.</p></li>
+<li><p>Estimated financial benefit: about 120 €/year.</p></li>
+<li><p>Estimated payback time: around 5 years.</p></li>
+</ul>
+<p>Therefore, despite significant shading from surrounding buildings, balcony solar appears economically attractive in my case.</p>
 <hr class="footnotes docutils" />
 <aside class="footnote-list brackets">
 <aside class="footnote brackets" id="id2" role="doc-footnote">
@@ -890,6 +905,7 @@ Total over 30 years: 3656.73 €
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Balcony solar panels</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-the-solar-radiation">Calculating the solar radiation</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#consumption">Consumption</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaway">Key takeaway</a></li>
 </ul>
 
   </nav></div>

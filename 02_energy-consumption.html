@@ -213,11 +213,13 @@
 <li class="toctree-l1"><a class="reference internal" href="01_balcony-pv-production.html">Balcony solar panels</a></li>
 
 
+
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Energy consumption in Brussels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="03_balcony-lca.html">Life cycle assessment of plug and play solar</a></li>
 <li class="toctree-l1"><a class="reference internal" href="04_balcony-pv-battery.html">Battery storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="05_permitting.html">Permitting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="06_rooftop-pv.html">Rooftop solar</a></li>
+
 
 
 <li class="toctree-l1"><a class="reference internal" href="07_financing.html">Financing</a></li>
@@ -417,7 +419,9 @@
                   
   <section id="energy-consumption-in-brussels">
 <h1>Energy consumption in Brussels<a class="headerlink" href="#energy-consumption-in-brussels" title="Link to this heading">#</a></h1>
-<p>Sibelga regularly publishes the yearly consumption for the different municipalities in the Brussels region. Looking at the residential data, we can see that the average yearly consumption per household is around 2000 kWh, with some geographical differences:</p>
+<p>A recurring question when discussing residential energy consumption is whether wealthier households consume more electricity. Understanding this relationship is important because it affects both the economics of distributed energy resources and the distributional impacts of energy policies.</p>
+<p>Using residential consumption data from Sibelga, together with municipal income statistics from IBSA, I find that average household income explains roughly 64% of the variation in electricity consumption across Brussels municipalities. The relationship is much weaker when income is measured per inhabitant rather than per household.</p>
+<p>Let’s start from the household consumption data published by Sibelga:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
@@ -432,7 +436,7 @@
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">"font.family"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Montserrat"</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.colors</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearSegmentedColormap</span>
-<span class="n">cmap</span> <span class="o">=</span> <span class="n">LinearSegmentedColormap</span><span class="o">.</span><span class="n">from_list</span><span class="p">(</span><span class="s2">"swifft_map"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"#043122"</span><span class="p">,</span> <span class="s2">"#C03C04"</span><span class="p">])</span>
+<span class="n">cmap</span> <span class="o">=</span> <span class="n">LinearSegmentedColormap</span><span class="o">.</span><span class="n">from_list</span><span class="p">(</span><span class="s2">"swifft_map"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"#CF8B25"</span><span class="p">,</span> <span class="s2">"#C03C04"</span><span class="p">])</span>
 
 <span class="n">df_consumption</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"../data/202312-yearly-consumption-elec-2023.csv"</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">";"</span><span class="p">,</span> <span class="n">decimal</span><span class="o">=</span><span class="s2">"."</span><span class="p">)</span>
 <span class="n">df_consumption_res</span> <span class="o">=</span> <span class="n">df_consumption</span><span class="p">[</span><span class="n">df_consumption</span><span class="p">[</span><span class="s1">'CUSTOMER_TYPE_FR_TX'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'RES'</span><span class="p">]</span>
@@ -453,10 +457,10 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/cc0d826e2d9aba47e490e3b87a508b88a2352996a0417c7fc24b41332c8d695a.png" src="_images/cc0d826e2d9aba47e490e3b87a508b88a2352996a0417c7fc24b41332c8d695a.png" />
+<img alt="_images/b72898799054f4f807abf21d7634f4854a1a266d8855bd71af488fee7ec10a91.png" src="_images/b72898799054f4f807abf21d7634f4854a1a266d8855bd71af488fee7ec10a91.png" />
 </div>
 </div>
-<p>The municipalities consuming a larger share of energy are the ones on the south: Woluwe-Saint-Pierre, Auderghem, Watermael-Boitsfort, Uccle, which also happen to be the richest municipalities.
+<p>The municipalities with the highest electricity consumption are located in the southern part of the region: Woluwe-Saint-Pierre, Auderghem, Watermael-Boitsfort, Uccle, which also happen to be the richest municipalities.
 This is supported by looking at the average income data. The IBSA (Institut Bruxellois de Statistique et d’Analyse) publishes the equivalent average income per inhabitant after taxes, which we can compare with the average consumption.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -475,7 +479,7 @@ This is supported by looking at the average income data. The IBSA (Institut Brux
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4a886e7b076a174c4a523e9d1ff40758c37a80cc99020b4334e97f6b9542d078.png" src="_images/4a886e7b076a174c4a523e9d1ff40758c37a80cc99020b4334e97f6b9542d078.png" />
+<img alt="_images/4ae002df16a7189b19bf4176f4b19c66ff09e873613c7bdb787e18b735a8cb33.png" src="_images/4ae002df16a7189b19bf4176f4b19c66ff09e873613c7bdb787e18b735a8cb33.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -514,14 +518,14 @@ This is supported by looking at the average income data. The IBSA (Institut Brux
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/85ee2b536ee0ab38e5790ece6be7a9a590a3531b764373d0bd308284145aa19e.png" src="_images/85ee2b536ee0ab38e5790ece6be7a9a590a3531b764373d0bd308284145aa19e.png" />
+<img alt="_images/1d87f884f7a8e9131aea21cb32e17bcd5edb29df2bc5ffbdfc24ece6748230a4.png" src="_images/1d87f884f7a8e9131aea21cb32e17bcd5edb29df2bc5ffbdfc24ece6748230a4.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                            OLS Regression Results                            
 ==============================================================================
 Dep. Variable:            AVERAGE_KWH   R-squared:                       0.328
 Model:                            OLS   Adj. R-squared:                  0.288
 Method:                 Least Squares   F-statistic:                     8.297
-Date:                Fri, 06 Nov 2026   Prob (F-statistic):             0.0104
-Time:                        10:25:06   Log-Likelihood:                -127.43
+Date:                Mon, 09 Nov 2026   Prob (F-statistic):             0.0104
+Time:                        13:54:09   Log-Likelihood:                -127.43
 No. Observations:                  19   AIC:                             258.9
 Df Residuals:                      17   BIC:                             260.7
 Df Model:                           1                                         
@@ -546,9 +550,9 @@ strong multicollinearity or other numerical problems.
 </div>
 </div>
 </div>
-<p>The data shows a clear correlation between income and energy consumption, with a confidence greater than 95%, even if the average income explains only around 25% of the variance in the consumption, meaning that there are other factors that contributes to increase or decrease the energy consumption, of course.</p>
-<p>However, there are some outliers like Etterbeek who consumes less than what would be predicted given its average income, and Molenbeek which consumes more. An issue with this dataset is that the consumption is given per household while the income is per inhabitant. A possible explanation is that Etterbeek has a smaller number of inhabiotants per household on average, which would explain the lower consumption per household.</p>
-<p>To check this hypothesis, I have computed the average size of households for the different municipalities, and I have computed the average income per household as the average income per inhabitants multiplied by the average size of the households.</p>
+<p>The data show a clear correlation between income and energy consumption, with a confidence greater than 95%, even if the average income explains only around 33% of the variance in the consumption, meaning that there are other factors that contributes to increase or decrease the energy consumption, of course.</p>
+<p>However, there are some outliers such as Etterbeek, which consumes less than what would be predicted given its average income, and Molenbeek which consumes more. An issue with this dataset is that the consumption is given per household while the income is per inhabitant. A possible explanation is that Etterbeek has a smaller number of inhabitants per household on average, which would explain the lower consumption per household.</p>
+<p>To test this hypothesis, I have computed the average size of households for the different municipalities, and I computed the average income per household by multiplying the average income per inhabitant by the average household size.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_households</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s2">"../data/1.4_population_menages_20260826.xlsx"</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="s2">"1.4.1.1"</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s2">"calamine"</span><span class="p">)</span>
@@ -596,14 +600,14 @@ strong multicollinearity or other numerical problems.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/402ec31bbe5c258bf0b6b7594430bafc1f8d853644dbe9eb6b05190330130752.png" src="_images/402ec31bbe5c258bf0b6b7594430bafc1f8d853644dbe9eb6b05190330130752.png" />
+<img alt="_images/fb0c39617a59d1c535d4f5464aff0005c175caed9f81d74d48b1d821808efd2c.png" src="_images/fb0c39617a59d1c535d4f5464aff0005c175caed9f81d74d48b1d821808efd2c.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                            OLS Regression Results                            
 ==============================================================================
 Dep. Variable:            AVERAGE_KWH   R-squared:                       0.643
 Model:                            OLS   Adj. R-squared:                  0.622
 Method:                 Least Squares   F-statistic:                     30.63
-Date:                Fri, 06 Nov 2026   Prob (F-statistic):           3.64e-05
-Time:                        10:25:06   Log-Likelihood:                -121.42
+Date:                Mon, 09 Nov 2026   Prob (F-statistic):           3.64e-05
+Time:                        13:54:09   Log-Likelihood:                -121.42
 No. Observations:                  19   AIC:                             246.8
 Df Residuals:                      17   BIC:                             248.7
 Df Model:                           1                                         
@@ -629,7 +633,7 @@ strong multicollinearity or other numerical problems.
 </div>
 </div>
 <p>Now the correlation signal is stronger than before, with a r-squared of 0.64, meaning that the average household income alone explains 64% of the variance in the consumption.</p>
-<p>From one point of view, this correlation is understandable considering that more purchasing power equates to bigger homes and thus higher consumption. However, from another point of view, a bigger revenue should allow for better houses which are more insulated, with more efficient energy systems. Evidently, the first mechanism is more powerful than the second one.</p>
+<p>From one point of view, this correlation is understandable considering that more purchasing power equates to larger homes and thus higher consumption. However, from another point of view, a bigger revenue should allow for better houses which are more insulated, with more efficient energy systems. Evidently, the first mechanism is more powerful than the second one.</p>
 <p>On a small scale, this replicates exactly the global <a class="reference external" href="https://energyforgrowth.org/article/high-income-low-energy-countries-dont-exist-update-sep-2024/">phenomenon</a> in which higher income per capita aligns very well with higher electricity consumption.</p>
 </section>
 
